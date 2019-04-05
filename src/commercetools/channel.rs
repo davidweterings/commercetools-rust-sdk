@@ -102,7 +102,7 @@ pub struct ChannelUpdate {
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct ChannelUpdateAction {
+pub enum ChannelUpdateAction {
 }
 
 #[derive(Serialize, Deserialize, Debug)]

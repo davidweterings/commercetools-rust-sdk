@@ -31,24 +31,9 @@ fn main() -> Result<(), Box<std::error::Error>> {
         .bearer_auth(&token_result.access_token)
         .send()?;
     let cats: commercetools::product::ProductPagedQueryResponse = response.json()?;
-
-
     println!("Cats: {:?}", cats);
-    /*
 
-    let mut config = Config::new(
-        client_id,
-        client_secret,
-        "https://auth.sphere.io",
-        "https://auth.sphere.io/oauth/token",
-    );
-    config = config.add_scope("manage_project:nl-dev-david");
-    config = config.set_auth_type(AuthType::BasicAuth);
-
-    let token_result = config.exchange_client_credentials().unwrap();
-    println!("Token result: {:?}", token_result);
-
-    let channel_update = ChannelUpdate {
+    let channel_update = commercetools::channel::ChannelUpdate {
         version: 5,
         actions: vec![
             ChannelUpdateAction::ChangeKey {
@@ -60,21 +45,5 @@ fn main() -> Result<(), Box<std::error::Error>> {
         ],
     };
 
-    let client = reqwest::Client::new();
-    let mut response = client
-        .post("https://api.sphere.io/nl-dev-david/channels/7d0dc66a-1b3c-4d80-aaa2-7b6773e8323f")
-        .bearer_auth(&token_result.access_token)
-        .json(&channel_update)
-        .send()?;
-
-    println!("Channel update: {:?}", response.text()?);
-
-    let args: Vec<String> = env::args().collect();
-    let filename = &args[1];
-    println!("Got filename: {}", filename);
-    let f = std::fs::File::open(filename)?;
-    let d: RamlDefinition = serde_yaml::from_reader(f)?;
-    println!("Read YAML string: {:?}", d);
-    */
     Ok(())
 }

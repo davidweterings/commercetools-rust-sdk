@@ -75,7 +75,7 @@ pub struct CustomFieldReferenceType {
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct CustomFieldSetType {
-   pub element_type: FieldType,
+   pub element_type: Box<FieldType>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -115,9 +115,32 @@ pub struct FieldDefinition {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct FieldType {
-   pub name: String,
+#[serde(tag = "name")]
+pub enum FieldType {
+   #[serde(rename = "Reference")]
+   ECustomFieldReferenceType(CustomFieldReferenceType),
+   #[serde(rename = "Boolean")]
+   ECustomFieldBooleanType(CustomFieldBooleanType),
+   #[serde(rename = "Number")]
+   ECustomFieldNumberType(CustomFieldNumberType),
+   #[serde(rename = "LocalizedEnum")]
+   ECustomFieldLocalizedEnumType(CustomFieldLocalizedEnumType),
+   #[serde(rename = "String")]
+   ECustomFieldStringType(CustomFieldStringType),
+   #[serde(rename = "Set")]
+   ECustomFieldSetType(CustomFieldSetType),
+   #[serde(rename = "Time")]
+   ECustomFieldTimeType(CustomFieldTimeType),
+   #[serde(rename = "DateTime")]
+   ECustomFieldDateTimeType(CustomFieldDateTimeType),
+   #[serde(rename = "Date")]
+   ECustomFieldDateType(CustomFieldDateType),
+   #[serde(rename = "Enum")]
+   ECustomFieldEnumType(CustomFieldEnumType),
+   #[serde(rename = "Money")]
+   ECustomFieldMoneyType(CustomFieldMoneyType),
+   #[serde(rename = "LocalizedString")]
+   ECustomFieldLocalizedStringType(CustomFieldLocalizedStringType),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -263,8 +286,32 @@ pub struct TypeUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct TypeUpdateAction {
+#[serde(tag = "action")]
+pub enum TypeUpdateAction {
+   #[serde(rename = "addEnumValue")]
+   ETypeAddEnumValueAction(TypeAddEnumValueAction),
+   #[serde(rename = "addFieldDefinition")]
+   ETypeAddFieldDefinitionAction(TypeAddFieldDefinitionAction),
+   #[serde(rename = "addLocalizedEnumValue")]
+   ETypeAddLocalizedEnumValueAction(TypeAddLocalizedEnumValueAction),
+   #[serde(rename = "changeEnumValueOrder")]
+   ETypeChangeEnumValueOrderAction(TypeChangeEnumValueOrderAction),
+   #[serde(rename = "changeFieldDefinitionLabel")]
+   ETypeChangeFieldDefinitionLabelAction(TypeChangeFieldDefinitionLabelAction),
+   #[serde(rename = "changeFieldDefinitionOrder")]
+   ETypeChangeFieldDefinitionOrderAction(TypeChangeFieldDefinitionOrderAction),
+   #[serde(rename = "changeKey")]
+   ETypeChangeKeyAction(TypeChangeKeyAction),
+   #[serde(rename = "changeLabel")]
+   ETypeChangeLabelAction(TypeChangeLabelAction),
+   #[serde(rename = "changeLocalizedEnumValueOrder")]
+   ETypeChangeLocalizedEnumValueOrderAction(TypeChangeLocalizedEnumValueOrderAction),
+   #[serde(rename = "changeName")]
+   ETypeChangeNameAction(TypeChangeNameAction),
+   #[serde(rename = "removeFieldDefinition")]
+   ETypeRemoveFieldDefinitionAction(TypeRemoveFieldDefinitionAction),
+   #[serde(rename = "setDescription")]
+   ETypeSetDescriptionAction(TypeSetDescriptionAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

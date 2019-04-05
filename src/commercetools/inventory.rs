@@ -65,8 +65,24 @@ pub struct InventoryUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct InventoryUpdateAction {
+#[serde(tag = "action")]
+pub enum InventoryUpdateAction {
+   #[serde(rename = "addQuantity")]
+   EInventoryAddQuantityAction(InventoryAddQuantityAction),
+   #[serde(rename = "changeQuantity")]
+   EInventoryChangeQuantityAction(InventoryChangeQuantityAction),
+   #[serde(rename = "removeQuantity")]
+   EInventoryRemoveQuantityAction(InventoryRemoveQuantityAction),
+   #[serde(rename = "setCustomField")]
+   EInventorySetCustomFieldAction(InventorySetCustomFieldAction),
+   #[serde(rename = "setCustomType")]
+   EInventorySetCustomTypeAction(InventorySetCustomTypeAction),
+   #[serde(rename = "setExpectedDelivery")]
+   EInventorySetExpectedDeliveryAction(InventorySetExpectedDeliveryAction),
+   #[serde(rename = "setRestockableInDays")]
+   EInventorySetRestockableInDaysAction(InventorySetRestockableInDaysAction),
+   #[serde(rename = "setSupplyChannel")]
+   EInventorySetSupplyChannelAction(InventorySetSupplyChannelAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

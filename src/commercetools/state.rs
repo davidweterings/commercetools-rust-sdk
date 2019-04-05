@@ -115,8 +115,26 @@ pub struct StateUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct StateUpdateAction {
+#[serde(tag = "action")]
+pub enum StateUpdateAction {
+   #[serde(rename = "addRoles")]
+   EStateAddRolesAction(StateAddRolesAction),
+   #[serde(rename = "changeInitial")]
+   EStateChangeInitialAction(StateChangeInitialAction),
+   #[serde(rename = "changeKey")]
+   EStateChangeKeyAction(StateChangeKeyAction),
+   #[serde(rename = "changeType")]
+   EStateChangeTypeAction(StateChangeTypeAction),
+   #[serde(rename = "removeRoles")]
+   EStateRemoveRolesAction(StateRemoveRolesAction),
+   #[serde(rename = "setDescription")]
+   EStateSetDescriptionAction(StateSetDescriptionAction),
+   #[serde(rename = "setName")]
+   EStateSetNameAction(StateSetNameAction),
+   #[serde(rename = "setRoles")]
+   EStateSetRolesAction(StateSetRolesAction),
+   #[serde(rename = "setTransitions")]
+   EStateSetTransitionsAction(StateSetTransitionsAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

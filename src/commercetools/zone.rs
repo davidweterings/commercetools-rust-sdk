@@ -65,8 +65,18 @@ pub struct ZoneUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct ZoneUpdateAction {
+#[serde(tag = "action")]
+pub enum ZoneUpdateAction {
+   #[serde(rename = "addLocation")]
+   EZoneAddLocationAction(ZoneAddLocationAction),
+   #[serde(rename = "changeName")]
+   EZoneChangeNameAction(ZoneChangeNameAction),
+   #[serde(rename = "removeLocation")]
+   EZoneRemoveLocationAction(ZoneRemoveLocationAction),
+   #[serde(rename = "setDescription")]
+   EZoneSetDescriptionAction(ZoneSetDescriptionAction),
+   #[serde(rename = "setKey")]
+   EZoneSetKeyAction(ZoneSetKeyAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

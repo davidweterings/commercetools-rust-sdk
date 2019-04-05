@@ -35,9 +35,12 @@ pub struct DeliveryCloudEventsFormat {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct DeliveryFormat {
-   pub r#type: String,
+#[serde(tag = "type")]
+pub enum DeliveryFormat {
+   #[serde(rename = "Platform")]
+   EDeliveryPlatformFormat(DeliveryPlatformFormat),
+   #[serde(rename = "CloudEvents")]
+   EDeliveryCloudEventsFormat(DeliveryCloudEventsFormat),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -46,9 +49,20 @@ pub struct DeliveryPlatformFormat {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct Destination {
-   pub r#type: String,
+#[serde(tag = "type")]
+pub enum Destination {
+   #[serde(rename = "GoogleCloudPubSub")]
+   EGoogleCloudPubSubDestination(GoogleCloudPubSubDestination),
+   #[serde(rename = "IronMQ")]
+   EIronMqDestination(IronMqDestination),
+   #[serde(rename = "SNS")]
+   ESnsDestination(SnsDestination),
+   #[serde(rename = "SQS")]
+   ESqsDestination(SqsDestination),
+   #[serde(rename = "EventGrid")]
+   EAzureEventGridDestination(AzureEventGridDestination),
+   #[serde(rename = "AzureServiceBus")]
+   EAzureServiceBusDestination(AzureServiceBusDestination),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -157,12 +171,16 @@ pub struct Subscription {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct SubscriptionDelivery {
-   pub resource: Reference,
-   pub notification_type: String,
-   pub project_key: String,
-   pub resource_user_provided_identifiers: Option<UserProvidedIdentifiers>,
+#[serde(tag = "notificationType")]
+pub enum SubscriptionDelivery {
+   #[serde(rename = "ResourceDeleted")]
+   EResourceDeletedDelivery(ResourceDeletedDelivery),
+   #[serde(rename = "Message")]
+   EMessageDelivery(MessageDelivery),
+   #[serde(rename = "ResourceCreated")]
+   EResourceCreatedDelivery(ResourceCreatedDelivery),
+   #[serde(rename = "ResourceUpdated")]
+   EResourceUpdatedDelivery(ResourceUpdatedDelivery),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -221,8 +239,16 @@ pub struct SubscriptionUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct SubscriptionUpdateAction {
+#[serde(tag = "action")]
+pub enum SubscriptionUpdateAction {
+   #[serde(rename = "changeDestination")]
+   ESubscriptionChangeDestinationAction(SubscriptionChangeDestinationAction),
+   #[serde(rename = "setChanges")]
+   ESubscriptionSetChangesAction(SubscriptionSetChangesAction),
+   #[serde(rename = "setKey")]
+   ESubscriptionSetKeyAction(SubscriptionSetKeyAction),
+   #[serde(rename = "setMessages")]
+   ESubscriptionSetMessagesAction(SubscriptionSetMessagesAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

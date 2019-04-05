@@ -36,11 +36,15 @@ fn main() -> Result<(), Box<std::error::Error>> {
     let channel_update = commercetools::channel::ChannelUpdate {
         version: 5,
         actions: vec![
-            ChannelUpdateAction::ChangeKey {
-                key: "Shipwire".to_owned(),
+            commercetools::channel::ChannelUpdateAction::EChannelChangeKeyAction {
+                commercetools::channel::ChannelChangeKeyAction {
+                    key: "Shipwire".to_owned(),
+                }
             },
-            ChannelUpdateAction::ChangeName {
-                name: hashmap! {"en".to_owned() => "Shipwire".to_owned()},
+            commercetools::channel::ChannelUpdateAction::EChannelChangeNameAction {
+                commercetools::channel::ChannelChangeNameAction {
+                    name: hashmap! {"en".to_owned() => "Shipwire".to_owned()},
+                }
             },
         ],
     };

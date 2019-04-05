@@ -11,16 +11,6 @@ use super::common::Reference;
 use super::common::Money;
 use super::cart::TaxedPrice;
 use super::order::Order;
-use super::cart::CartOrigin;
-use super::cart::LineItem;
-use super::order::SyncInfo;
-use super::cart::DiscountCodeInfo;
-use super::order::ReturnInfo;
-use super::cart::CartReference;
-use super::cart::InventoryMode;
-use super::order::PaymentInfo;
-use super::cart::ShippingInfo;
-use super::cart::CustomLineItem;
 use super::cttype::TypeReference;
 use super::common::LocalizedString;
 use super::taxcategory::TaxCategoryReference;
@@ -53,12 +43,22 @@ use super::order::ReturnPaymentState;
 use super::order::ReturnShipmentState;
 use super::shippingmethod::ShippingMethodReference;
 use super::cart::ShippingRateInputDraft;
-use super::cart::ShippingRateInput;
 use super::state::StateReference;
 use chrono::{DateTime, NaiveDate, Utc};
 use serde_json;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use super::cart::CustomLineItem;
+use super::cart::LineItem;
+use super::order::SyncInfo;
+use super::cart::CartOrigin;
+use super::cart::DiscountCodeInfo;
+use super::order::ReturnInfo;
+use super::cart::CartReference;
+use super::cart::InventoryMode;
+use super::order::PaymentInfo;
+use super::cart::ShippingInfo;
+use super::cart::ShippingRateInput;
 
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -138,9 +138,16 @@ pub struct OrderEditReference {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct OrderEditResult {
-   pub r#type: String,
+#[serde(tag = "type")]
+pub enum OrderEditResult {
+   #[serde(rename = "Applied")]
+   EOrderEditApplied(OrderEditApplied),
+   #[serde(rename = "NotProcessed")]
+   EOrderEditNotProcessed(OrderEditNotProcessed),
+   #[serde(rename = "PreviewSuccess")]
+   EOrderEditPreviewSuccess(OrderEditPreviewSuccess),
+   #[serde(rename = "PreviewFailure")]
+   EOrderEditPreviewFailure(OrderEditPreviewFailure),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -152,8 +159,20 @@ pub struct OrderEditUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct OrderEditUpdateAction {
+#[serde(tag = "action")]
+pub enum OrderEditUpdateAction {
+   #[serde(rename = "addStagedAction")]
+   EOrderEditAddStagedActionAction(OrderEditAddStagedActionAction),
+   #[serde(rename = "setComment")]
+   EOrderEditSetCommentAction(OrderEditSetCommentAction),
+   #[serde(rename = "setCustomField")]
+   EOrderEditSetCustomFieldAction(OrderEditSetCustomFieldAction),
+   #[serde(rename = "setCustomType")]
+   EOrderEditSetCustomTypeAction(OrderEditSetCustomTypeAction),
+   #[serde(rename = "setKey")]
+   EOrderEditSetKeyAction(OrderEditSetKeyAction),
+   #[serde(rename = "setStagedActions")]
+   EOrderEditSetStagedActionsAction(OrderEditSetStagedActionsAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

@@ -102,8 +102,52 @@ pub struct PaymentUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct PaymentUpdateAction {
+#[serde(tag = "action")]
+pub enum PaymentUpdateAction {
+   #[serde(rename = "addInterfaceInteraction")]
+   EPaymentAddInterfaceInteractionAction(PaymentAddInterfaceInteractionAction),
+   #[serde(rename = "addTransaction")]
+   EPaymentAddTransactionAction(PaymentAddTransactionAction),
+   #[serde(rename = "changeAmountPlanned")]
+   EPaymentChangeAmountPlannedAction(PaymentChangeAmountPlannedAction),
+   #[serde(rename = "changeTransactionInteractionId")]
+   EPaymentChangeTransactionInteractionIdAction(PaymentChangeTransactionInteractionIdAction),
+   #[serde(rename = "changeTransactionState")]
+   EPaymentChangeTransactionStateAction(PaymentChangeTransactionStateAction),
+   #[serde(rename = "changeTransactionTimestamp")]
+   EPaymentChangeTransactionTimestampAction(PaymentChangeTransactionTimestampAction),
+   #[serde(rename = "setAmountPaid")]
+   EPaymentSetAmountPaidAction(PaymentSetAmountPaidAction),
+   #[serde(rename = "setAmountRefunded")]
+   EPaymentSetAmountRefundedAction(PaymentSetAmountRefundedAction),
+   #[serde(rename = "setAnonymousId")]
+   EPaymentSetAnonymousIdAction(PaymentSetAnonymousIdAction),
+   #[serde(rename = "setAuthorization")]
+   EPaymentSetAuthorizationAction(PaymentSetAuthorizationAction),
+   #[serde(rename = "setCustomField")]
+   EPaymentSetCustomFieldAction(PaymentSetCustomFieldAction),
+   #[serde(rename = "setCustomType")]
+   EPaymentSetCustomTypeAction(PaymentSetCustomTypeAction),
+   #[serde(rename = "setCustomer")]
+   EPaymentSetCustomerAction(PaymentSetCustomerAction),
+   #[serde(rename = "setExternalId")]
+   EPaymentSetExternalIdAction(PaymentSetExternalIdAction),
+   #[serde(rename = "setInterfaceId")]
+   EPaymentSetInterfaceIdAction(PaymentSetInterfaceIdAction),
+   #[serde(rename = "setKey")]
+   EPaymentSetKeyAction(PaymentSetKeyAction),
+   #[serde(rename = "setMethodInfoInterface")]
+   EPaymentSetMethodInfoInterfaceAction(PaymentSetMethodInfoInterfaceAction),
+   #[serde(rename = "setMethodInfoMethod")]
+   EPaymentSetMethodInfoMethodAction(PaymentSetMethodInfoMethodAction),
+   #[serde(rename = "setMethodInfoName")]
+   EPaymentSetMethodInfoNameAction(PaymentSetMethodInfoNameAction),
+   #[serde(rename = "setStatusInterfaceCode")]
+   EPaymentSetStatusInterfaceCodeAction(PaymentSetStatusInterfaceCodeAction),
+   #[serde(rename = "setStatusInterfaceText")]
+   EPaymentSetStatusInterfaceTextAction(PaymentSetStatusInterfaceTextAction),
+   #[serde(rename = "transitionState")]
+   EPaymentTransitionStateAction(PaymentTransitionStateAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

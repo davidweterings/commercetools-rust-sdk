@@ -102,8 +102,54 @@ pub struct ShoppingListUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct ShoppingListUpdateAction {
+#[serde(tag = "action")]
+pub enum ShoppingListUpdateAction {
+   #[serde(rename = "addLineItem")]
+   EShoppingListAddLineItemAction(ShoppingListAddLineItemAction),
+   #[serde(rename = "addTextLineItem")]
+   EShoppingListAddTextLineItemAction(ShoppingListAddTextLineItemAction),
+   #[serde(rename = "changeLineItemQuantity")]
+   EShoppingListChangeLineItemQuantityAction(ShoppingListChangeLineItemQuantityAction),
+   #[serde(rename = "changeLineItemsOrder")]
+   EShoppingListChangeLineItemsOrderAction(ShoppingListChangeLineItemsOrderAction),
+   #[serde(rename = "changeName")]
+   EShoppingListChangeNameAction(ShoppingListChangeNameAction),
+   #[serde(rename = "changeTextLineItemName")]
+   EShoppingListChangeTextLineItemNameAction(ShoppingListChangeTextLineItemNameAction),
+   #[serde(rename = "changeTextLineItemQuantity")]
+   EShoppingListChangeTextLineItemQuantityAction(ShoppingListChangeTextLineItemQuantityAction),
+   #[serde(rename = "changeTextLineItemsOrder")]
+   EShoppingListChangeTextLineItemsOrderAction(ShoppingListChangeTextLineItemsOrderAction),
+   #[serde(rename = "removeLineItem")]
+   EShoppingListRemoveLineItemAction(ShoppingListRemoveLineItemAction),
+   #[serde(rename = "removeTextLineItem")]
+   EShoppingListRemoveTextLineItemAction(ShoppingListRemoveTextLineItemAction),
+   #[serde(rename = "setAnonymousId")]
+   EShoppingListSetAnonymousIdAction(ShoppingListSetAnonymousIdAction),
+   #[serde(rename = "setCustomField")]
+   EShoppingListSetCustomFieldAction(ShoppingListSetCustomFieldAction),
+   #[serde(rename = "setCustomType")]
+   EShoppingListSetCustomTypeAction(ShoppingListSetCustomTypeAction),
+   #[serde(rename = "setCustomer")]
+   EShoppingListSetCustomerAction(ShoppingListSetCustomerAction),
+   #[serde(rename = "setDeleteDaysAfterLastModification")]
+   EShoppingListSetDeleteDaysAfterLastModificationAction(ShoppingListSetDeleteDaysAfterLastModificationAction),
+   #[serde(rename = "setDescription")]
+   EShoppingListSetDescriptionAction(ShoppingListSetDescriptionAction),
+   #[serde(rename = "setKey")]
+   EShoppingListSetKeyAction(ShoppingListSetKeyAction),
+   #[serde(rename = "setLineItemCustomField")]
+   EShoppingListSetLineItemCustomFieldAction(ShoppingListSetLineItemCustomFieldAction),
+   #[serde(rename = "setLineItemCustomType")]
+   EShoppingListSetLineItemCustomTypeAction(ShoppingListSetLineItemCustomTypeAction),
+   #[serde(rename = "setSlug")]
+   EShoppingListSetSlugAction(ShoppingListSetSlugAction),
+   #[serde(rename = "setTextLineItemCustomField")]
+   EShoppingListSetTextLineItemCustomFieldAction(ShoppingListSetTextLineItemCustomFieldAction),
+   #[serde(rename = "setTextLineItemCustomType")]
+   EShoppingListSetTextLineItemCustomTypeAction(ShoppingListSetTextLineItemCustomTypeAction),
+   #[serde(rename = "setTextLineItemDescription")]
+   EShoppingListSetTextLineItemDescriptionAction(ShoppingListSetTextLineItemDescriptionAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

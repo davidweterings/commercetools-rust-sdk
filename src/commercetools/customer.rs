@@ -189,8 +189,58 @@ pub struct CustomerUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct CustomerUpdateAction {
+#[serde(tag = "action")]
+pub enum CustomerUpdateAction {
+   #[serde(rename = "addAddress")]
+   ECustomerAddAddressAction(CustomerAddAddressAction),
+   #[serde(rename = "addBillingAddressId")]
+   ECustomerAddBillingAddressIdAction(CustomerAddBillingAddressIdAction),
+   #[serde(rename = "addShippingAddressId")]
+   ECustomerAddShippingAddressIdAction(CustomerAddShippingAddressIdAction),
+   #[serde(rename = "changeAddress")]
+   ECustomerChangeAddressAction(CustomerChangeAddressAction),
+   #[serde(rename = "changeEmail")]
+   ECustomerChangeEmailAction(CustomerChangeEmailAction),
+   #[serde(rename = "removeAddress")]
+   ECustomerRemoveAddressAction(CustomerRemoveAddressAction),
+   #[serde(rename = "removeBillingAddressId")]
+   ECustomerRemoveBillingAddressIdAction(CustomerRemoveBillingAddressIdAction),
+   #[serde(rename = "removeShippingAddressId")]
+   ECustomerRemoveShippingAddressIdAction(CustomerRemoveShippingAddressIdAction),
+   #[serde(rename = "setCompanyName")]
+   ECustomerSetCompanyNameAction(CustomerSetCompanyNameAction),
+   #[serde(rename = "setCustomField")]
+   ECustomerSetCustomFieldAction(CustomerSetCustomFieldAction),
+   #[serde(rename = "setCustomType")]
+   ECustomerSetCustomTypeAction(CustomerSetCustomTypeAction),
+   #[serde(rename = "setCustomerGroup")]
+   ECustomerSetCustomerGroupAction(CustomerSetCustomerGroupAction),
+   #[serde(rename = "setCustomerNumber")]
+   ECustomerSetCustomerNumberAction(CustomerSetCustomerNumberAction),
+   #[serde(rename = "setDateOfBirth")]
+   ECustomerSetDateOfBirthAction(CustomerSetDateOfBirthAction),
+   #[serde(rename = "setDefaultBillingAddress")]
+   ECustomerSetDefaultBillingAddressAction(CustomerSetDefaultBillingAddressAction),
+   #[serde(rename = "setDefaultShippingAddress")]
+   ECustomerSetDefaultShippingAddressAction(CustomerSetDefaultShippingAddressAction),
+   #[serde(rename = "setExternalId")]
+   ECustomerSetExternalIdAction(CustomerSetExternalIdAction),
+   #[serde(rename = "setFirstName")]
+   ECustomerSetFirstNameAction(CustomerSetFirstNameAction),
+   #[serde(rename = "setKey")]
+   ECustomerSetKeyAction(CustomerSetKeyAction),
+   #[serde(rename = "setLastName")]
+   ECustomerSetLastNameAction(CustomerSetLastNameAction),
+   #[serde(rename = "setLocale")]
+   ECustomerSetLocaleAction(CustomerSetLocaleAction),
+   #[serde(rename = "setMiddleName")]
+   ECustomerSetMiddleNameAction(CustomerSetMiddleNameAction),
+   #[serde(rename = "setSalutation")]
+   ECustomerSetSalutationAction(CustomerSetSalutationAction),
+   #[serde(rename = "setTitle")]
+   ECustomerSetTitleAction(CustomerSetTitleAction),
+   #[serde(rename = "setVatId")]
+   ECustomerSetVatIdAction(CustomerSetVatIdAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

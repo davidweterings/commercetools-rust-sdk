@@ -86,8 +86,30 @@ pub struct ReviewUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct ReviewUpdateAction {
+#[serde(tag = "action")]
+pub enum ReviewUpdateAction {
+   #[serde(rename = "setAuthorName")]
+   EReviewSetAuthorNameAction(ReviewSetAuthorNameAction),
+   #[serde(rename = "setCustomField")]
+   EReviewSetCustomFieldAction(ReviewSetCustomFieldAction),
+   #[serde(rename = "setCustomType")]
+   EReviewSetCustomTypeAction(ReviewSetCustomTypeAction),
+   #[serde(rename = "setCustomer")]
+   EReviewSetCustomerAction(ReviewSetCustomerAction),
+   #[serde(rename = "setKey")]
+   EReviewSetKeyAction(ReviewSetKeyAction),
+   #[serde(rename = "setLocale")]
+   EReviewSetLocaleAction(ReviewSetLocaleAction),
+   #[serde(rename = "setRating")]
+   EReviewSetRatingAction(ReviewSetRatingAction),
+   #[serde(rename = "setTarget")]
+   EReviewSetTargetAction(ReviewSetTargetAction),
+   #[serde(rename = "setText")]
+   EReviewSetTextAction(ReviewSetTextAction),
+   #[serde(rename = "setTitle")]
+   EReviewSetTitleAction(ReviewSetTitleAction),
+   #[serde(rename = "transitionState")]
+   EReviewTransitionStateAction(ReviewTransitionStateAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

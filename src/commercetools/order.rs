@@ -114,9 +114,146 @@ use std::collections::HashMap;
 
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct StagedOrderUpdateAction {
-   pub action: String,
+#[serde(tag = "action")]
+pub enum StagedOrderUpdateAction {
+   #[serde(rename = "addCustomLineItem")]
+   EStagedOrderAddCustomLineItemAction(StagedOrderAddCustomLineItemAction),
+   #[serde(rename = "addDelivery")]
+   EStagedOrderAddDeliveryAction(StagedOrderAddDeliveryAction),
+   #[serde(rename = "addDiscountCode")]
+   EStagedOrderAddDiscountCodeAction(StagedOrderAddDiscountCodeAction),
+   #[serde(rename = "addItemShippingAddress")]
+   EStagedOrderAddItemShippingAddressAction(StagedOrderAddItemShippingAddressAction),
+   #[serde(rename = "addLineItem")]
+   EStagedOrderAddLineItemAction(StagedOrderAddLineItemAction),
+   #[serde(rename = "addParcelToDelivery")]
+   EStagedOrderAddParcelToDeliveryAction(StagedOrderAddParcelToDeliveryAction),
+   #[serde(rename = "addPayment")]
+   EStagedOrderAddPaymentAction(StagedOrderAddPaymentAction),
+   #[serde(rename = "addReturnInfo")]
+   EStagedOrderAddReturnInfoAction(StagedOrderAddReturnInfoAction),
+   #[serde(rename = "addShoppingList")]
+   EStagedOrderAddShoppingListAction(StagedOrderAddShoppingListAction),
+   #[serde(rename = "changeCustomLineItemMoney")]
+   EStagedOrderChangeCustomLineItemMoneyAction(StagedOrderChangeCustomLineItemMoneyAction),
+   #[serde(rename = "changeCustomLineItemQuantity")]
+   EStagedOrderChangeCustomLineItemQuantityAction(StagedOrderChangeCustomLineItemQuantityAction),
+   #[serde(rename = "changeLineItemQuantity")]
+   EStagedOrderChangeLineItemQuantityAction(StagedOrderChangeLineItemQuantityAction),
+   #[serde(rename = "changeOrderState")]
+   EStagedOrderChangeOrderStateAction(StagedOrderChangeOrderStateAction),
+   #[serde(rename = "changePaymentState")]
+   EStagedOrderChangePaymentStateAction(StagedOrderChangePaymentStateAction),
+   #[serde(rename = "changeShipmentState")]
+   EStagedOrderChangeShipmentStateAction(StagedOrderChangeShipmentStateAction),
+   #[serde(rename = "changeTaxCalculationMode")]
+   EStagedOrderChangeTaxCalculationModeAction(StagedOrderChangeTaxCalculationModeAction),
+   #[serde(rename = "changeTaxMode")]
+   EStagedOrderChangeTaxModeAction(StagedOrderChangeTaxModeAction),
+   #[serde(rename = "changeTaxRoundingMode")]
+   EStagedOrderChangeTaxRoundingModeAction(StagedOrderChangeTaxRoundingModeAction),
+   #[serde(rename = "importCustomLineItemState")]
+   EStagedOrderImportCustomLineItemStateAction(StagedOrderImportCustomLineItemStateAction),
+   #[serde(rename = "importLineItemState")]
+   EStagedOrderImportLineItemStateAction(StagedOrderImportLineItemStateAction),
+   #[serde(rename = "removeCustomLineItem")]
+   EStagedOrderRemoveCustomLineItemAction(StagedOrderRemoveCustomLineItemAction),
+   #[serde(rename = "removeDelivery")]
+   EStagedOrderRemoveDeliveryAction(StagedOrderRemoveDeliveryAction),
+   #[serde(rename = "removeDiscountCode")]
+   EStagedOrderRemoveDiscountCodeAction(StagedOrderRemoveDiscountCodeAction),
+   #[serde(rename = "removeItemShippingAddress")]
+   EStagedOrderRemoveItemShippingAddressAction(StagedOrderRemoveItemShippingAddressAction),
+   #[serde(rename = "removeLineItem")]
+   EStagedOrderRemoveLineItemAction(StagedOrderRemoveLineItemAction),
+   #[serde(rename = "removeParcelFromDelivery")]
+   EStagedOrderRemoveParcelFromDeliveryAction(StagedOrderRemoveParcelFromDeliveryAction),
+   #[serde(rename = "removePayment")]
+   EStagedOrderRemovePaymentAction(StagedOrderRemovePaymentAction),
+   #[serde(rename = "setBillingAddress")]
+   EStagedOrderSetBillingAddressAction(StagedOrderSetBillingAddressAction),
+   #[serde(rename = "setCountry")]
+   EStagedOrderSetCountryAction(StagedOrderSetCountryAction),
+   #[serde(rename = "setCustomField")]
+   EStagedOrderSetCustomFieldAction(StagedOrderSetCustomFieldAction),
+   #[serde(rename = "setCustomLineItemCustomField")]
+   EStagedOrderSetCustomLineItemCustomFieldAction(StagedOrderSetCustomLineItemCustomFieldAction),
+   #[serde(rename = "setCustomLineItemCustomType")]
+   EStagedOrderSetCustomLineItemCustomTypeAction(StagedOrderSetCustomLineItemCustomTypeAction),
+   #[serde(rename = "setCustomLineItemShippingDetails")]
+   EStagedOrderSetCustomLineItemShippingDetailsAction(StagedOrderSetCustomLineItemShippingDetailsAction),
+   #[serde(rename = "setCustomLineItemTaxAmount")]
+   EStagedOrderSetCustomLineItemTaxAmountAction(StagedOrderSetCustomLineItemTaxAmountAction),
+   #[serde(rename = "setCustomLineItemTaxRate")]
+   EStagedOrderSetCustomLineItemTaxRateAction(StagedOrderSetCustomLineItemTaxRateAction),
+   #[serde(rename = "setCustomShippingMethod")]
+   EStagedOrderSetCustomShippingMethodAction(StagedOrderSetCustomShippingMethodAction),
+   #[serde(rename = "setCustomType")]
+   EStagedOrderSetCustomTypeAction(StagedOrderSetCustomTypeAction),
+   #[serde(rename = "setCustomerEmail")]
+   EStagedOrderSetCustomerEmailAction(StagedOrderSetCustomerEmailAction),
+   #[serde(rename = "setCustomerGroup")]
+   EStagedOrderSetCustomerGroupAction(StagedOrderSetCustomerGroupAction),
+   #[serde(rename = "setCustomerId")]
+   EStagedOrderSetCustomerIdAction(StagedOrderSetCustomerIdAction),
+   #[serde(rename = "setDeliveryAddress")]
+   EStagedOrderSetDeliveryAddressAction(StagedOrderSetDeliveryAddressAction),
+   #[serde(rename = "setDeliveryItems")]
+   EStagedOrderSetDeliveryItemsAction(StagedOrderSetDeliveryItemsAction),
+   #[serde(rename = "setLineItemCustomField")]
+   EStagedOrderSetLineItemCustomFieldAction(StagedOrderSetLineItemCustomFieldAction),
+   #[serde(rename = "setLineItemCustomType")]
+   EStagedOrderSetLineItemCustomTypeAction(StagedOrderSetLineItemCustomTypeAction),
+   #[serde(rename = "setLineItemPrice")]
+   EStagedOrderSetLineItemPriceAction(StagedOrderSetLineItemPriceAction),
+   #[serde(rename = "setLineItemShippingDetails")]
+   EStagedOrderSetLineItemShippingDetailsAction(StagedOrderSetLineItemShippingDetailsAction),
+   #[serde(rename = "setLineItemTaxAmount")]
+   EStagedOrderSetLineItemTaxAmountAction(StagedOrderSetLineItemTaxAmountAction),
+   #[serde(rename = "setLineItemTaxRate")]
+   EStagedOrderSetLineItemTaxRateAction(StagedOrderSetLineItemTaxRateAction),
+   #[serde(rename = "setLineItemTotalPrice")]
+   EStagedOrderSetLineItemTotalPriceAction(StagedOrderSetLineItemTotalPriceAction),
+   #[serde(rename = "setLocale")]
+   EStagedOrderSetLocaleAction(StagedOrderSetLocaleAction),
+   #[serde(rename = "setOrderNumber")]
+   EStagedOrderSetOrderNumberAction(StagedOrderSetOrderNumberAction),
+   #[serde(rename = "setOrderTotalTax")]
+   EStagedOrderSetOrderTotalTaxAction(StagedOrderSetOrderTotalTaxAction),
+   #[serde(rename = "setParcelItems")]
+   EStagedOrderSetParcelItemsAction(StagedOrderSetParcelItemsAction),
+   #[serde(rename = "setParcelMeasurements")]
+   EStagedOrderSetParcelMeasurementsAction(StagedOrderSetParcelMeasurementsAction),
+   #[serde(rename = "setParcelTrackingData")]
+   EStagedOrderSetParcelTrackingDataAction(StagedOrderSetParcelTrackingDataAction),
+   #[serde(rename = "setReturnPaymentState")]
+   EStagedOrderSetReturnPaymentStateAction(StagedOrderSetReturnPaymentStateAction),
+   #[serde(rename = "setReturnShipmentState")]
+   EStagedOrderSetReturnShipmentStateAction(StagedOrderSetReturnShipmentStateAction),
+   #[serde(rename = "setShippingAddress")]
+   EStagedOrderSetShippingAddressAction(StagedOrderSetShippingAddressAction),
+   #[serde(rename = "setShippingAddressAndCustomShippingMethod")]
+   EStagedOrderSetShippingAddressAndCustomShippingMethodAction(StagedOrderSetShippingAddressAndCustomShippingMethodAction),
+   #[serde(rename = "setShippingAddressAndShippingMethod")]
+   EStagedOrderSetShippingAddressAndShippingMethodAction(StagedOrderSetShippingAddressAndShippingMethodAction),
+   #[serde(rename = "setShippingMethod")]
+   EStagedOrderSetShippingMethodAction(StagedOrderSetShippingMethodAction),
+   #[serde(rename = "setShippingMethodTaxAmount")]
+   EStagedOrderSetShippingMethodTaxAmountAction(StagedOrderSetShippingMethodTaxAmountAction),
+   #[serde(rename = "setShippingMethodTaxRate")]
+   EStagedOrderSetShippingMethodTaxRateAction(StagedOrderSetShippingMethodTaxRateAction),
+   #[serde(rename = "setShippingRateInput")]
+   EStagedOrderSetShippingRateInputAction(StagedOrderSetShippingRateInputAction),
+   #[serde(rename = "transitionCustomLineItemState")]
+   EStagedOrderTransitionCustomLineItemStateAction(StagedOrderTransitionCustomLineItemStateAction),
+   #[serde(rename = "transitionLineItemState")]
+   EStagedOrderTransitionLineItemStateAction(StagedOrderTransitionLineItemStateAction),
+   #[serde(rename = "transitionState")]
+   EStagedOrderTransitionStateAction(StagedOrderTransitionStateAction),
+   #[serde(rename = "updateItemShippingAddress")]
+   EStagedOrderUpdateItemShippingAddressAction(StagedOrderUpdateItemShippingAddressAction),
+   #[serde(rename = "updateSyncInfo")]
+   EStagedOrderUpdateSyncInfoAction(StagedOrderUpdateSyncInfoAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -322,8 +459,88 @@ pub struct OrderUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct OrderUpdateAction {
+#[serde(tag = "action")]
+pub enum OrderUpdateAction {
+   #[serde(rename = "addDelivery")]
+   EOrderAddDeliveryAction(OrderAddDeliveryAction),
+   #[serde(rename = "addItemShippingAddress")]
+   EOrderAddItemShippingAddressAction(OrderAddItemShippingAddressAction),
+   #[serde(rename = "addParcelToDelivery")]
+   EOrderAddParcelToDeliveryAction(OrderAddParcelToDeliveryAction),
+   #[serde(rename = "addPayment")]
+   EOrderAddPaymentAction(OrderAddPaymentAction),
+   #[serde(rename = "addReturnInfo")]
+   EOrderAddReturnInfoAction(OrderAddReturnInfoAction),
+   #[serde(rename = "changeOrderState")]
+   EOrderChangeOrderStateAction(OrderChangeOrderStateAction),
+   #[serde(rename = "changePaymentState")]
+   EOrderChangePaymentStateAction(OrderChangePaymentStateAction),
+   #[serde(rename = "changeShipmentState")]
+   EOrderChangeShipmentStateAction(OrderChangeShipmentStateAction),
+   #[serde(rename = "importCustomLineItemState")]
+   EOrderImportCustomLineItemStateAction(OrderImportCustomLineItemStateAction),
+   #[serde(rename = "importLineItemState")]
+   EOrderImportLineItemStateAction(OrderImportLineItemStateAction),
+   #[serde(rename = "removeDelivery")]
+   EOrderRemoveDeliveryAction(OrderRemoveDeliveryAction),
+   #[serde(rename = "removeItemShippingAddress")]
+   EOrderRemoveItemShippingAddressAction(OrderRemoveItemShippingAddressAction),
+   #[serde(rename = "removeParcelFromDelivery")]
+   EOrderRemoveParcelFromDeliveryAction(OrderRemoveParcelFromDeliveryAction),
+   #[serde(rename = "removePayment")]
+   EOrderRemovePaymentAction(OrderRemovePaymentAction),
+   #[serde(rename = "setBillingAddress")]
+   EOrderSetBillingAddressAction(OrderSetBillingAddressAction),
+   #[serde(rename = "setCustomField")]
+   EOrderSetCustomFieldAction(OrderSetCustomFieldAction),
+   #[serde(rename = "setCustomLineItemCustomField")]
+   EOrderSetCustomLineItemCustomFieldAction(OrderSetCustomLineItemCustomFieldAction),
+   #[serde(rename = "setCustomLineItemCustomType")]
+   EOrderSetCustomLineItemCustomTypeAction(OrderSetCustomLineItemCustomTypeAction),
+   #[serde(rename = "setCustomLineItemShippingDetails")]
+   EOrderSetCustomLineItemShippingDetailsAction(OrderSetCustomLineItemShippingDetailsAction),
+   #[serde(rename = "setCustomType")]
+   EOrderSetCustomTypeAction(OrderSetCustomTypeAction),
+   #[serde(rename = "setCustomerEmail")]
+   EOrderSetCustomerEmailAction(OrderSetCustomerEmailAction),
+   #[serde(rename = "setCustomerId")]
+   EOrderSetCustomerIdAction(OrderSetCustomerIdAction),
+   #[serde(rename = "setDeliveryAddress")]
+   EOrderSetDeliveryAddressAction(OrderSetDeliveryAddressAction),
+   #[serde(rename = "setDeliveryItems")]
+   EOrderSetDeliveryItemsAction(OrderSetDeliveryItemsAction),
+   #[serde(rename = "setLineItemCustomField")]
+   EOrderSetLineItemCustomFieldAction(OrderSetLineItemCustomFieldAction),
+   #[serde(rename = "setLineItemCustomType")]
+   EOrderSetLineItemCustomTypeAction(OrderSetLineItemCustomTypeAction),
+   #[serde(rename = "setLineItemShippingDetails")]
+   EOrderSetLineItemShippingDetailsAction(OrderSetLineItemShippingDetailsAction),
+   #[serde(rename = "setLocale")]
+   EOrderSetLocaleAction(OrderSetLocaleAction),
+   #[serde(rename = "setOrderNumber")]
+   EOrderSetOrderNumberAction(OrderSetOrderNumberAction),
+   #[serde(rename = "setParcelItems")]
+   EOrderSetParcelItemsAction(OrderSetParcelItemsAction),
+   #[serde(rename = "setParcelMeasurements")]
+   EOrderSetParcelMeasurementsAction(OrderSetParcelMeasurementsAction),
+   #[serde(rename = "setParcelTrackingData")]
+   EOrderSetParcelTrackingDataAction(OrderSetParcelTrackingDataAction),
+   #[serde(rename = "setReturnPaymentState")]
+   EOrderSetReturnPaymentStateAction(OrderSetReturnPaymentStateAction),
+   #[serde(rename = "setReturnShipmentState")]
+   EOrderSetReturnShipmentStateAction(OrderSetReturnShipmentStateAction),
+   #[serde(rename = "setShippingAddress")]
+   EOrderSetShippingAddressAction(OrderSetShippingAddressAction),
+   #[serde(rename = "transitionCustomLineItemState")]
+   EOrderTransitionCustomLineItemStateAction(OrderTransitionCustomLineItemStateAction),
+   #[serde(rename = "transitionLineItemState")]
+   EOrderTransitionLineItemStateAction(OrderTransitionLineItemStateAction),
+   #[serde(rename = "transitionState")]
+   EOrderTransitionStateAction(OrderTransitionStateAction),
+   #[serde(rename = "updateItemShippingAddress")]
+   EOrderUpdateItemShippingAddressAction(OrderUpdateItemShippingAddressAction),
+   #[serde(rename = "updateSyncInfo")]
+   EOrderUpdateSyncInfoAction(OrderUpdateSyncInfoAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -410,16 +627,12 @@ pub struct ReturnInfo {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct ReturnItem {
-   pub payment_state: ReturnPaymentState,
-   pub shipment_state: ReturnShipmentState,
-   pub created_at: DateTime<Utc>,
-   pub last_modified_at: DateTime<Utc>,
-   pub quantity: u64,
-   pub id: String,
-   pub r#type: String,
-   pub comment: Option<String>,
+#[serde(tag = "type")]
+pub enum ReturnItem {
+   #[serde(rename = "LineItemReturnItem")]
+   ELineItemReturnItem(LineItemReturnItem),
+   #[serde(rename = "CustomLineItemReturnItem")]
+   ECustomLineItemReturnItem(CustomLineItemReturnItem),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

@@ -101,8 +101,28 @@ pub struct ChannelUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
+#[serde(tag = "action")]
 pub enum ChannelUpdateAction {
+   #[serde(rename = "addRoles")]
+   EChannelAddRolesAction(ChannelAddRolesAction),
+   #[serde(rename = "changeDescription")]
+   EChannelChangeDescriptionAction(ChannelChangeDescriptionAction),
+   #[serde(rename = "changeKey")]
+   EChannelChangeKeyAction(ChannelChangeKeyAction),
+   #[serde(rename = "changeName")]
+   EChannelChangeNameAction(ChannelChangeNameAction),
+   #[serde(rename = "removeRoles")]
+   EChannelRemoveRolesAction(ChannelRemoveRolesAction),
+   #[serde(rename = "setAddress")]
+   EChannelSetAddressAction(ChannelSetAddressAction),
+   #[serde(rename = "setCustomField")]
+   EChannelSetCustomFieldAction(ChannelSetCustomFieldAction),
+   #[serde(rename = "setCustomType")]
+   EChannelSetCustomTypeAction(ChannelSetCustomTypeAction),
+   #[serde(rename = "setGeoLocation")]
+   EChannelSetGeoLocationAction(ChannelSetGeoLocationAction),
+   #[serde(rename = "setRoles")]
+   EChannelSetRolesAction(ChannelSetRolesAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

@@ -96,9 +96,18 @@ pub struct CartDiscountShippingCostTarget {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct CartDiscountTarget {
-   pub r#type: String,
+#[serde(tag = "type")]
+pub enum CartDiscountTarget {
+   #[serde(rename = "multiBuyCustomLineItems")]
+   EMultiBuyCustomLineItemsTarget(MultiBuyCustomLineItemsTarget),
+   #[serde(rename = "multiBuyLineItems")]
+   EMultiBuyLineItemsTarget(MultiBuyLineItemsTarget),
+   #[serde(rename = "customLineItems")]
+   ECartDiscountCustomLineItemsTarget(CartDiscountCustomLineItemsTarget),
+   #[serde(rename = "shipping")]
+   ECartDiscountShippingCostTarget(CartDiscountShippingCostTarget),
+   #[serde(rename = "lineItems")]
+   ECartDiscountLineItemsTarget(CartDiscountLineItemsTarget),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -109,14 +118,47 @@ pub struct CartDiscountUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct CartDiscountUpdateAction {
+#[serde(tag = "action")]
+pub enum CartDiscountUpdateAction {
+   #[serde(rename = "changeCartPredicate")]
+   ECartDiscountChangeCartPredicateAction(CartDiscountChangeCartPredicateAction),
+   #[serde(rename = "changeIsActive")]
+   ECartDiscountChangeIsActiveAction(CartDiscountChangeIsActiveAction),
+   #[serde(rename = "changeName")]
+   ECartDiscountChangeNameAction(CartDiscountChangeNameAction),
+   #[serde(rename = "changeRequiresDiscountCode")]
+   ECartDiscountChangeRequiresDiscountCodeAction(CartDiscountChangeRequiresDiscountCodeAction),
+   #[serde(rename = "changeSortOrder")]
+   ECartDiscountChangeSortOrderAction(CartDiscountChangeSortOrderAction),
+   #[serde(rename = "changeStackingMode")]
+   ECartDiscountChangeStackingModeAction(CartDiscountChangeStackingModeAction),
+   #[serde(rename = "changeTarget")]
+   ECartDiscountChangeTargetAction(CartDiscountChangeTargetAction),
+   #[serde(rename = "changeValue")]
+   ECartDiscountChangeValueAction(CartDiscountChangeValueAction),
+   #[serde(rename = "setCustomField")]
+   ECartDiscountSetCustomFieldAction(CartDiscountSetCustomFieldAction),
+   #[serde(rename = "setCustomType")]
+   ECartDiscountSetCustomTypeAction(CartDiscountSetCustomTypeAction),
+   #[serde(rename = "setDescription")]
+   ECartDiscountSetDescriptionAction(CartDiscountSetDescriptionAction),
+   #[serde(rename = "setValidFrom")]
+   ECartDiscountSetValidFromAction(CartDiscountSetValidFromAction),
+   #[serde(rename = "setValidFromAndUntil")]
+   ECartDiscountSetValidFromAndUntilAction(CartDiscountSetValidFromAndUntilAction),
+   #[serde(rename = "setValidUntil")]
+   ECartDiscountSetValidUntilAction(CartDiscountSetValidUntilAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct CartDiscountValue {
-   pub r#type: String,
+#[serde(tag = "type")]
+pub enum CartDiscountValue {
+   #[serde(rename = "absolute")]
+   ECartDiscountValueAbsolute(CartDiscountValueAbsolute),
+   #[serde(rename = "giftLineItem")]
+   ECartDiscountValueGiftLineItem(CartDiscountValueGiftLineItem),
+   #[serde(rename = "relative")]
+   ECartDiscountValueRelative(CartDiscountValueRelative),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

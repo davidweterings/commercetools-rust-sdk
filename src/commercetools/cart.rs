@@ -176,8 +176,108 @@ pub struct CartUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct CartUpdateAction {
+#[serde(tag = "action")]
+pub enum CartUpdateAction {
+   #[serde(rename = "addCustomLineItem")]
+   ECartAddCustomLineItemAction(CartAddCustomLineItemAction),
+   #[serde(rename = "addDiscountCode")]
+   ECartAddDiscountCodeAction(CartAddDiscountCodeAction),
+   #[serde(rename = "addItemShippingAddress")]
+   ECartAddItemShippingAddressAction(CartAddItemShippingAddressAction),
+   #[serde(rename = "addLineItem")]
+   ECartAddLineItemAction(CartAddLineItemAction),
+   #[serde(rename = "addPayment")]
+   ECartAddPaymentAction(CartAddPaymentAction),
+   #[serde(rename = "addShoppingList")]
+   ECartAddShoppingListAction(CartAddShoppingListAction),
+   #[serde(rename = "applyDeltaToCustomLineItemShippingDetailsTargets")]
+   ECartApplyDeltaToCustomLineItemShippingDetailsTargetsAction(CartApplyDeltaToCustomLineItemShippingDetailsTargetsAction),
+   #[serde(rename = "applyDeltaToLineItemShippingDetailsTargets")]
+   ECartApplyDeltaToLineItemShippingDetailsTargetsAction(CartApplyDeltaToLineItemShippingDetailsTargetsAction),
+   #[serde(rename = "changeCustomLineItemMoney")]
+   ECartChangeCustomLineItemMoneyAction(CartChangeCustomLineItemMoneyAction),
+   #[serde(rename = "changeCustomLineItemQuantity")]
+   ECartChangeCustomLineItemQuantityAction(CartChangeCustomLineItemQuantityAction),
+   #[serde(rename = "changeLineItemQuantity")]
+   ECartChangeLineItemQuantityAction(CartChangeLineItemQuantityAction),
+   #[serde(rename = "changeTaxCalculationMode")]
+   ECartChangeTaxCalculationModeAction(CartChangeTaxCalculationModeAction),
+   #[serde(rename = "changeTaxMode")]
+   ECartChangeTaxModeAction(CartChangeTaxModeAction),
+   #[serde(rename = "changeTaxRoundingMode")]
+   ECartChangeTaxRoundingModeAction(CartChangeTaxRoundingModeAction),
+   #[serde(rename = "recalculate")]
+   ECartRecalculateAction(CartRecalculateAction),
+   #[serde(rename = "removeCustomLineItem")]
+   ECartRemoveCustomLineItemAction(CartRemoveCustomLineItemAction),
+   #[serde(rename = "removeDiscountCode")]
+   ECartRemoveDiscountCodeAction(CartRemoveDiscountCodeAction),
+   #[serde(rename = "removeItemShippingAddress")]
+   ECartRemoveItemShippingAddressAction(CartRemoveItemShippingAddressAction),
+   #[serde(rename = "removeLineItem")]
+   ECartRemoveLineItemAction(CartRemoveLineItemAction),
+   #[serde(rename = "removePayment")]
+   ECartRemovePaymentAction(CartRemovePaymentAction),
+   #[serde(rename = "setAnonymousId")]
+   ECartSetAnonymousIdAction(CartSetAnonymousIdAction),
+   #[serde(rename = "setBillingAddress")]
+   ECartSetBillingAddressAction(CartSetBillingAddressAction),
+   #[serde(rename = "setCartTotalTax")]
+   ECartSetCartTotalTaxAction(CartSetCartTotalTaxAction),
+   #[serde(rename = "setCountry")]
+   ECartSetCountryAction(CartSetCountryAction),
+   #[serde(rename = "setCustomField")]
+   ECartSetCustomFieldAction(CartSetCustomFieldAction),
+   #[serde(rename = "setCustomLineItemCustomField")]
+   ECartSetCustomLineItemCustomFieldAction(CartSetCustomLineItemCustomFieldAction),
+   #[serde(rename = "setCustomLineItemCustomType")]
+   ECartSetCustomLineItemCustomTypeAction(CartSetCustomLineItemCustomTypeAction),
+   #[serde(rename = "setCustomLineItemShippingDetails")]
+   ECartSetCustomLineItemShippingDetailsAction(CartSetCustomLineItemShippingDetailsAction),
+   #[serde(rename = "setCustomLineItemTaxAmount")]
+   ECartSetCustomLineItemTaxAmountAction(CartSetCustomLineItemTaxAmountAction),
+   #[serde(rename = "setCustomLineItemTaxRate")]
+   ECartSetCustomLineItemTaxRateAction(CartSetCustomLineItemTaxRateAction),
+   #[serde(rename = "setCustomShippingMethod")]
+   ECartSetCustomShippingMethodAction(CartSetCustomShippingMethodAction),
+   #[serde(rename = "setCustomType")]
+   ECartSetCustomTypeAction(CartSetCustomTypeAction),
+   #[serde(rename = "setCustomerEmail")]
+   ECartSetCustomerEmailAction(CartSetCustomerEmailAction),
+   #[serde(rename = "setCustomerGroup")]
+   ECartSetCustomerGroupAction(CartSetCustomerGroupAction),
+   #[serde(rename = "setCustomerId")]
+   ECartSetCustomerIdAction(CartSetCustomerIdAction),
+   #[serde(rename = "setDeleteDaysAfterLastModification")]
+   ECartSetDeleteDaysAfterLastModificationAction(CartSetDeleteDaysAfterLastModificationAction),
+   #[serde(rename = "setLineItemCustomField")]
+   ECartSetLineItemCustomFieldAction(CartSetLineItemCustomFieldAction),
+   #[serde(rename = "setLineItemCustomType")]
+   ECartSetLineItemCustomTypeAction(CartSetLineItemCustomTypeAction),
+   #[serde(rename = "setLineItemPrice")]
+   ECartSetLineItemPriceAction(CartSetLineItemPriceAction),
+   #[serde(rename = "setLineItemShippingDetails")]
+   ECartSetLineItemShippingDetailsAction(CartSetLineItemShippingDetailsAction),
+   #[serde(rename = "setLineItemTaxAmount")]
+   ECartSetLineItemTaxAmountAction(CartSetLineItemTaxAmountAction),
+   #[serde(rename = "setLineItemTaxRate")]
+   ECartSetLineItemTaxRateAction(CartSetLineItemTaxRateAction),
+   #[serde(rename = "setLineItemTotalPrice")]
+   ECartSetLineItemTotalPriceAction(CartSetLineItemTotalPriceAction),
+   #[serde(rename = "setLocale")]
+   ECartSetLocaleAction(CartSetLocaleAction),
+   #[serde(rename = "setShippingAddress")]
+   ECartSetShippingAddressAction(CartSetShippingAddressAction),
+   #[serde(rename = "setShippingMethod")]
+   ECartSetShippingMethodAction(CartSetShippingMethodAction),
+   #[serde(rename = "setShippingMethodTaxAmount")]
+   ECartSetShippingMethodTaxAmountAction(CartSetShippingMethodTaxAmountAction),
+   #[serde(rename = "setShippingMethodTaxRate")]
+   ECartSetShippingMethodTaxRateAction(CartSetShippingMethodTaxRateAction),
+   #[serde(rename = "setShippingRateInput")]
+   ECartSetShippingRateInputAction(CartSetShippingRateInputAction),
+   #[serde(rename = "updateItemShippingAddress")]
+   ECartUpdateItemShippingAddressAction(CartUpdateItemShippingAddressAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -524,15 +624,21 @@ impl ShippingMethodState {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct ShippingRateInput {
-   pub r#type: String,
+#[serde(tag = "type")]
+pub enum ShippingRateInput {
+   #[serde(rename = "Score")]
+   EScoreShippingRateInput(ScoreShippingRateInput),
+   #[serde(rename = "Classification")]
+   EClassificationShippingRateInput(ClassificationShippingRateInput),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct ShippingRateInputDraft {
-   pub r#type: String,
+#[serde(tag = "type")]
+pub enum ShippingRateInputDraft {
+   #[serde(rename = "Classification")]
+   EClassificationShippingRateInputDraft(ClassificationShippingRateInputDraft),
+   #[serde(rename = "Score")]
+   EScoreShippingRateInputDraft(ScoreShippingRateInputDraft),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

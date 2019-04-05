@@ -80,8 +80,52 @@ pub struct CategoryUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct CategoryUpdateAction {
+#[serde(tag = "action")]
+pub enum CategoryUpdateAction {
+   #[serde(rename = "addAsset")]
+   ECategoryAddAssetAction(CategoryAddAssetAction),
+   #[serde(rename = "changeAssetName")]
+   ECategoryChangeAssetNameAction(CategoryChangeAssetNameAction),
+   #[serde(rename = "changeAssetOrder")]
+   ECategoryChangeAssetOrderAction(CategoryChangeAssetOrderAction),
+   #[serde(rename = "changeName")]
+   ECategoryChangeNameAction(CategoryChangeNameAction),
+   #[serde(rename = "changeOrderHint")]
+   ECategoryChangeOrderHintAction(CategoryChangeOrderHintAction),
+   #[serde(rename = "changeParent")]
+   ECategoryChangeParentAction(CategoryChangeParentAction),
+   #[serde(rename = "changeSlug")]
+   ECategoryChangeSlugAction(CategoryChangeSlugAction),
+   #[serde(rename = "removeAsset")]
+   ECategoryRemoveAssetAction(CategoryRemoveAssetAction),
+   #[serde(rename = "setAssetCustomField")]
+   ECategorySetAssetCustomFieldAction(CategorySetAssetCustomFieldAction),
+   #[serde(rename = "setAssetCustomType")]
+   ECategorySetAssetCustomTypeAction(CategorySetAssetCustomTypeAction),
+   #[serde(rename = "setAssetDescription")]
+   ECategorySetAssetDescriptionAction(CategorySetAssetDescriptionAction),
+   #[serde(rename = "setAssetKey")]
+   ECategorySetAssetKeyAction(CategorySetAssetKeyAction),
+   #[serde(rename = "setAssetSources")]
+   ECategorySetAssetSourcesAction(CategorySetAssetSourcesAction),
+   #[serde(rename = "setAssetTags")]
+   ECategorySetAssetTagsAction(CategorySetAssetTagsAction),
+   #[serde(rename = "setCustomField")]
+   ECategorySetCustomFieldAction(CategorySetCustomFieldAction),
+   #[serde(rename = "setCustomType")]
+   ECategorySetCustomTypeAction(CategorySetCustomTypeAction),
+   #[serde(rename = "setDescription")]
+   ECategorySetDescriptionAction(CategorySetDescriptionAction),
+   #[serde(rename = "setExternalId")]
+   ECategorySetExternalIdAction(CategorySetExternalIdAction),
+   #[serde(rename = "setKey")]
+   ECategorySetKeyAction(CategorySetKeyAction),
+   #[serde(rename = "setMetaDescription")]
+   ECategorySetMetaDescriptionAction(CategorySetMetaDescriptionAction),
+   #[serde(rename = "setMetaKeywords")]
+   ECategorySetMetaKeywordsAction(CategorySetMetaKeywordsAction),
+   #[serde(rename = "setMetaTitle")]
+   ECategorySetMetaTitleAction(CategorySetMetaTitleAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

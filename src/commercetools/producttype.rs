@@ -156,7 +156,7 @@ pub struct AttributeReferenceType {
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct AttributeSetType {
-   pub element_type: AttributeType,
+   pub element_type: Box<AttributeType>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -170,9 +170,34 @@ pub struct AttributeTimeType {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct AttributeType {
-   pub name: String,
+#[serde(tag = "name")]
+pub enum AttributeType {
+   #[serde(rename = "enum")]
+   EAttributeEnumType(AttributeEnumType),
+   #[serde(rename = "text")]
+   EAttributeTextType(AttributeTextType),
+   #[serde(rename = "ltext")]
+   EAttributeLocalizableTextType(AttributeLocalizableTextType),
+   #[serde(rename = "date")]
+   EAttributeDateType(AttributeDateType),
+   #[serde(rename = "datetime")]
+   EAttributeDateTimeType(AttributeDateTimeType),
+   #[serde(rename = "number")]
+   EAttributeNumberType(AttributeNumberType),
+   #[serde(rename = "money")]
+   EAttributeMoneyType(AttributeMoneyType),
+   #[serde(rename = "time")]
+   EAttributeTimeType(AttributeTimeType),
+   #[serde(rename = "lenum")]
+   EAttributeLocalizedEnumType(AttributeLocalizedEnumType),
+   #[serde(rename = "reference")]
+   EAttributeReferenceType(AttributeReferenceType),
+   #[serde(rename = "nested")]
+   EAttributeNestedType(AttributeNestedType),
+   #[serde(rename = "set")]
+   EAttributeSetType(AttributeSetType),
+   #[serde(rename = "boolean")]
+   EAttributeBooleanType(AttributeBooleanType),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -222,8 +247,50 @@ pub struct ProductTypeUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct ProductTypeUpdateAction {
+#[serde(tag = "action")]
+pub enum ProductTypeUpdateAction {
+   #[serde(rename = "addAttributeDefinition")]
+   EProductTypeAddAttributeDefinitionAction(ProductTypeAddAttributeDefinitionAction),
+   #[serde(rename = "addLocalizedEnumValue")]
+   EProductTypeAddLocalizedEnumValueAction(ProductTypeAddLocalizedEnumValueAction),
+   #[serde(rename = "addPlainEnumValue")]
+   EProductTypeAddPlainEnumValueAction(ProductTypeAddPlainEnumValueAction),
+   #[serde(rename = "changeAttributeConstraint")]
+   EProductTypeChangeAttributeConstraintAction(ProductTypeChangeAttributeConstraintAction),
+   #[serde(rename = "changeAttributeName")]
+   EProductTypeChangeAttributeNameAction(ProductTypeChangeAttributeNameAction),
+   #[serde(rename = "changeAttributeOrder")]
+   EProductTypeChangeAttributeOrderAction(ProductTypeChangeAttributeOrderAction),
+   #[serde(rename = "changeAttributeOrderByName")]
+   EProductTypeChangeAttributeOrderByNameAction(ProductTypeChangeAttributeOrderByNameAction),
+   #[serde(rename = "changeDescription")]
+   EProductTypeChangeDescriptionAction(ProductTypeChangeDescriptionAction),
+   #[serde(rename = "changeEnumKey")]
+   EProductTypeChangeEnumKeyAction(ProductTypeChangeEnumKeyAction),
+   #[serde(rename = "changeInputHint")]
+   EProductTypeChangeInputHintAction(ProductTypeChangeInputHintAction),
+   #[serde(rename = "changeIsSearchable")]
+   EProductTypeChangeIsSearchableAction(ProductTypeChangeIsSearchableAction),
+   #[serde(rename = "changeLabel")]
+   EProductTypeChangeLabelAction(ProductTypeChangeLabelAction),
+   #[serde(rename = "changeLocalizedEnumValueLabel")]
+   EProductTypeChangeLocalizedEnumValueLabelAction(ProductTypeChangeLocalizedEnumValueLabelAction),
+   #[serde(rename = "changeLocalizedEnumValueOrder")]
+   EProductTypeChangeLocalizedEnumValueOrderAction(ProductTypeChangeLocalizedEnumValueOrderAction),
+   #[serde(rename = "changeName")]
+   EProductTypeChangeNameAction(ProductTypeChangeNameAction),
+   #[serde(rename = "changePlainEnumValueLabel")]
+   EProductTypeChangePlainEnumValueLabelAction(ProductTypeChangePlainEnumValueLabelAction),
+   #[serde(rename = "changePlainEnumValueOrder")]
+   EProductTypeChangePlainEnumValueOrderAction(ProductTypeChangePlainEnumValueOrderAction),
+   #[serde(rename = "removeAttributeDefinition")]
+   EProductTypeRemoveAttributeDefinitionAction(ProductTypeRemoveAttributeDefinitionAction),
+   #[serde(rename = "removeEnumValues")]
+   EProductTypeRemoveEnumValuesAction(ProductTypeRemoveEnumValuesAction),
+   #[serde(rename = "setInputTip")]
+   EProductTypeSetInputTipAction(ProductTypeSetInputTipAction),
+   #[serde(rename = "setKey")]
+   EProductTypeSetKeyAction(ProductTypeSetKeyAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

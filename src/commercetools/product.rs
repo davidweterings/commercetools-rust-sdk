@@ -41,9 +41,14 @@ pub struct CustomTokenizer {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct FacetResult {
-   pub r#type: FacetTypes,
+#[serde(tag = "type")]
+pub enum FacetResult {
+   #[serde(rename = "filter")]
+   EFilteredFacetResult(FilteredFacetResult),
+   #[serde(rename = "range")]
+   ERangeFacetResult(RangeFacetResult),
+   #[serde(rename = "terms")]
+   ETermFacetResult(TermFacetResult),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -236,8 +241,100 @@ pub struct ProductUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct ProductUpdateAction {
+#[serde(tag = "action")]
+pub enum ProductUpdateAction {
+   #[serde(rename = "addAsset")]
+   EProductAddAssetAction(ProductAddAssetAction),
+   #[serde(rename = "addExternalImage")]
+   EProductAddExternalImageAction(ProductAddExternalImageAction),
+   #[serde(rename = "addPrice")]
+   EProductAddPriceAction(ProductAddPriceAction),
+   #[serde(rename = "addToCategory")]
+   EProductAddToCategoryAction(ProductAddToCategoryAction),
+   #[serde(rename = "addVariant")]
+   EProductAddVariantAction(ProductAddVariantAction),
+   #[serde(rename = "changeAssetName")]
+   EProductChangeAssetNameAction(ProductChangeAssetNameAction),
+   #[serde(rename = "changeAssetOrder")]
+   EProductChangeAssetOrderAction(ProductChangeAssetOrderAction),
+   #[serde(rename = "changeMasterVariant")]
+   EProductChangeMasterVariantAction(ProductChangeMasterVariantAction),
+   #[serde(rename = "changeName")]
+   EProductChangeNameAction(ProductChangeNameAction),
+   #[serde(rename = "changePrice")]
+   EProductChangePriceAction(ProductChangePriceAction),
+   #[serde(rename = "changeSlug")]
+   EProductChangeSlugAction(ProductChangeSlugAction),
+   #[serde(rename = "legacySetSku")]
+   EProductLegacySetSkuAction(ProductLegacySetSkuAction),
+   #[serde(rename = "moveImageToPosition")]
+   EProductMoveImageToPositionAction(ProductMoveImageToPositionAction),
+   #[serde(rename = "publish")]
+   EProductPublishAction(ProductPublishAction),
+   #[serde(rename = "removeAsset")]
+   EProductRemoveAssetAction(ProductRemoveAssetAction),
+   #[serde(rename = "removeFromCategory")]
+   EProductRemoveFromCategoryAction(ProductRemoveFromCategoryAction),
+   #[serde(rename = "removeImage")]
+   EProductRemoveImageAction(ProductRemoveImageAction),
+   #[serde(rename = "removePrice")]
+   EProductRemovePriceAction(ProductRemovePriceAction),
+   #[serde(rename = "removeVariant")]
+   EProductRemoveVariantAction(ProductRemoveVariantAction),
+   #[serde(rename = "revertStagedChanges")]
+   EProductRevertStagedChangesAction(ProductRevertStagedChangesAction),
+   #[serde(rename = "revertStagedVariantChanges")]
+   EProductRevertStagedVariantChangesAction(ProductRevertStagedVariantChangesAction),
+   #[serde(rename = "setAssetCustomField")]
+   EProductSetAssetCustomFieldAction(ProductSetAssetCustomFieldAction),
+   #[serde(rename = "setAssetCustomType")]
+   EProductSetAssetCustomTypeAction(ProductSetAssetCustomTypeAction),
+   #[serde(rename = "setAssetDescription")]
+   EProductSetAssetDescriptionAction(ProductSetAssetDescriptionAction),
+   #[serde(rename = "setAssetKey")]
+   EProductSetAssetKeyAction(ProductSetAssetKeyAction),
+   #[serde(rename = "setAssetSources")]
+   EProductSetAssetSourcesAction(ProductSetAssetSourcesAction),
+   #[serde(rename = "setAssetTags")]
+   EProductSetAssetTagsAction(ProductSetAssetTagsAction),
+   #[serde(rename = "setAttribute")]
+   EProductSetAttributeAction(ProductSetAttributeAction),
+   #[serde(rename = "setAttributeInAllVariants")]
+   EProductSetAttributeInAllVariantsAction(ProductSetAttributeInAllVariantsAction),
+   #[serde(rename = "setCategoryOrderHint")]
+   EProductSetCategoryOrderHintAction(ProductSetCategoryOrderHintAction),
+   #[serde(rename = "setDescription")]
+   EProductSetDescriptionAction(ProductSetDescriptionAction),
+   #[serde(rename = "setDiscountedPrice")]
+   EProductSetDiscountedPriceAction(ProductSetDiscountedPriceAction),
+   #[serde(rename = "setImageLabel")]
+   EProductSetImageLabelAction(ProductSetImageLabelAction),
+   #[serde(rename = "setKey")]
+   EProductSetKeyAction(ProductSetKeyAction),
+   #[serde(rename = "setMetaDescription")]
+   EProductSetMetaDescriptionAction(ProductSetMetaDescriptionAction),
+   #[serde(rename = "setMetaKeywords")]
+   EProductSetMetaKeywordsAction(ProductSetMetaKeywordsAction),
+   #[serde(rename = "setMetaTitle")]
+   EProductSetMetaTitleAction(ProductSetMetaTitleAction),
+   #[serde(rename = "setPrices")]
+   EProductSetPricesAction(ProductSetPricesAction),
+   #[serde(rename = "setProductPriceCustomField")]
+   EProductSetProductPriceCustomFieldAction(ProductSetProductPriceCustomFieldAction),
+   #[serde(rename = "setProductPriceCustomType")]
+   EProductSetProductPriceCustomTypeAction(ProductSetProductPriceCustomTypeAction),
+   #[serde(rename = "setProductVariantKey")]
+   EProductSetProductVariantKeyAction(ProductSetProductVariantKeyAction),
+   #[serde(rename = "setSearchKeywords")]
+   EProductSetSearchKeywordsAction(ProductSetSearchKeywordsAction),
+   #[serde(rename = "setSku")]
+   EProductSetSkuAction(ProductSetSkuAction),
+   #[serde(rename = "setTaxCategory")]
+   EProductSetTaxCategoryAction(ProductSetTaxCategoryAction),
+   #[serde(rename = "transitionState")]
+   EProductTransitionStateAction(ProductTransitionStateAction),
+   #[serde(rename = "unpublish")]
+   EProductUnpublishAction(ProductUnpublishAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -303,9 +400,12 @@ pub struct SearchKeyword {
 pub type SearchKeywords = HashMap<String, Vec<SearchKeyword>>;
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct SuggestTokenizer {
-   pub r#type: String,
+#[serde(tag = "type")]
+pub enum SuggestTokenizer {
+   #[serde(rename = "whitespace")]
+   EWhitespaceTokenizer(WhitespaceTokenizer),
+   #[serde(rename = "custom")]
+   ECustomTokenizer(CustomTokenizer),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

@@ -147,10 +147,10 @@ pub struct DiscountedPrice {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct GeoJson {
-   pub coordinates: Vec<serde_json::Value>,
-   pub r#type: String,
+#[serde(tag = "type")]
+pub enum GeoJson {
+   #[serde(rename = "Point")]
+   EGeoJsonPoint(GeoJsonPoint),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -199,10 +199,26 @@ pub struct Money {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
 pub enum MoneyType {
-   CentPrecision(String),
-   HighPrecision(String),
+   CentPrecision,
+   HighPrecision
+}
+
+impl MoneyType {
+    pub fn from_str(s: &str) -> Option<MoneyType> {
+        match s {
+            "centPrecision" => Some(MoneyType::CentPrecision),
+            "highPrecision" => Some(MoneyType::HighPrecision),
+            _ => None,
+        }
+    }
+
+    pub fn as_str(&self) -> &'static str {
+        match *self {
+           MoneyType::CentPrecision => "centPrecision",
+           MoneyType::HighPrecision => "highPrecision",
+        }
+    }
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -247,11 +263,52 @@ pub struct PriceTier {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct Reference {
-   pub type_id: Option<ReferenceTypeId>,
-   pub id: Option<String>,
-   pub key: Option<String>,
+#[serde(tag = "typeId")]
+pub enum Reference {
+   #[serde(rename = "category")]
+   ECategoryReference(CategoryReference),
+   #[serde(rename = "product-discount")]
+   EProductDiscountReference(ProductDiscountReference),
+   #[serde(rename = "shipping-method")]
+   EShippingMethodReference(ShippingMethodReference),
+   #[serde(rename = "zone")]
+   EZoneReference(ZoneReference),
+   #[serde(rename = "channel")]
+   EChannelReference(ChannelReference),
+   #[serde(rename = "discount-code")]
+   EDiscountCodeReference(DiscountCodeReference),
+   #[serde(rename = "review")]
+   EReviewReference(ReviewReference),
+   #[serde(rename = "payment")]
+   EPaymentReference(PaymentReference),
+   #[serde(rename = "order")]
+   EOrderReference(OrderReference),
+   #[serde(rename = "type")]
+   ETypeReference(TypeReference),
+   #[serde(rename = "state")]
+   EStateReference(StateReference),
+   #[serde(rename = "inventory-entry")]
+   EInventoryEntryReference(InventoryEntryReference),
+   #[serde(rename = "customer-group")]
+   ECustomerGroupReference(CustomerGroupReference),
+   #[serde(rename = "product")]
+   EProductReference(ProductReference),
+   #[serde(rename = "product-type")]
+   EProductTypeReference(ProductTypeReference),
+   #[serde(rename = "customer")]
+   ECustomerReference(CustomerReference),
+   #[serde(rename = "shopping-list")]
+   EShoppingListReference(ShoppingListReference),
+   #[serde(rename = "order-edit")]
+   EOrderEditReference(OrderEditReference),
+   #[serde(rename = "key-value-document")]
+   ECustomObjectReference(CustomObjectReference),
+   #[serde(rename = "cart-discount")]
+   ECartDiscountReference(CartDiscountReference),
+   #[serde(rename = "tax-category")]
+   ETaxCategoryReference(TaxCategoryReference),
+   #[serde(rename = "cart")]
+   ECartReference(CartReference),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -373,13 +430,10 @@ pub struct ScopedPrice {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct TypedMoney {
-   /**
-   	<p>The currency code compliant to <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a>.</p>
-   */
-   pub currency_code: String,
-   pub r#type: MoneyType,
-   pub cent_amount: u64,
-   pub fraction_digits: u32,
+#[serde(tag = "type")]
+pub enum TypedMoney {
+   #[serde(rename = "highPrecision")]
+   EHighPrecisionMoney(HighPrecisionMoney),
+   #[serde(rename = "centPrecision")]
+   ECentPrecisionMoney(CentPrecisionMoney),
 }

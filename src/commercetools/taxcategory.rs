@@ -62,8 +62,20 @@ pub struct TaxCategoryUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct TaxCategoryUpdateAction {
+#[serde(tag = "action")]
+pub enum TaxCategoryUpdateAction {
+   #[serde(rename = "addTaxRate")]
+   ETaxCategoryAddTaxRateAction(TaxCategoryAddTaxRateAction),
+   #[serde(rename = "changeName")]
+   ETaxCategoryChangeNameAction(TaxCategoryChangeNameAction),
+   #[serde(rename = "removeTaxRate")]
+   ETaxCategoryRemoveTaxRateAction(TaxCategoryRemoveTaxRateAction),
+   #[serde(rename = "replaceTaxRate")]
+   ETaxCategoryReplaceTaxRateAction(TaxCategoryReplaceTaxRateAction),
+   #[serde(rename = "setDescription")]
+   ETaxCategorySetDescriptionAction(TaxCategorySetDescriptionAction),
+   #[serde(rename = "setKey")]
+   ETaxCategorySetKeyAction(TaxCategorySetKeyAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

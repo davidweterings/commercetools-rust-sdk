@@ -100,8 +100,28 @@ pub struct ShippingMethodUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct ShippingMethodUpdateAction {
+#[serde(tag = "action")]
+pub enum ShippingMethodUpdateAction {
+   #[serde(rename = "addShippingRate")]
+   EShippingMethodAddShippingRateAction(ShippingMethodAddShippingRateAction),
+   #[serde(rename = "addZone")]
+   EShippingMethodAddZoneAction(ShippingMethodAddZoneAction),
+   #[serde(rename = "changeIsDefault")]
+   EShippingMethodChangeIsDefaultAction(ShippingMethodChangeIsDefaultAction),
+   #[serde(rename = "changeName")]
+   EShippingMethodChangeNameAction(ShippingMethodChangeNameAction),
+   #[serde(rename = "changeTaxCategory")]
+   EShippingMethodChangeTaxCategoryAction(ShippingMethodChangeTaxCategoryAction),
+   #[serde(rename = "removeShippingRate")]
+   EShippingMethodRemoveShippingRateAction(ShippingMethodRemoveShippingRateAction),
+   #[serde(rename = "removeZone")]
+   EShippingMethodRemoveZoneAction(ShippingMethodRemoveZoneAction),
+   #[serde(rename = "setDescription")]
+   EShippingMethodSetDescriptionAction(ShippingMethodSetDescriptionAction),
+   #[serde(rename = "setKey")]
+   EShippingMethodSetKeyAction(ShippingMethodSetKeyAction),
+   #[serde(rename = "setPredicate")]
+   EShippingMethodSetPredicateAction(ShippingMethodSetPredicateAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -122,9 +142,14 @@ pub struct ShippingRateDraft {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct ShippingRatePriceTier {
-   pub r#type: ShippingRateTierType,
+#[serde(tag = "type")]
+pub enum ShippingRatePriceTier {
+   #[serde(rename = "CartValue")]
+   ECartValueTier(CartValueTier),
+   #[serde(rename = "CartClassification")]
+   ECartClassificationTier(CartClassificationTier),
+   #[serde(rename = "CartScore")]
+   ECartScoreTier(CartScoreTier),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

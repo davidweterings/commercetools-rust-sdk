@@ -49,14 +49,33 @@ pub struct ProjectUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct ProjectUpdateAction {
+#[serde(tag = "action")]
+pub enum ProjectUpdateAction {
+   #[serde(rename = "changeCountries")]
+   EProjectChangeCountriesAction(ProjectChangeCountriesAction),
+   #[serde(rename = "changeCurrencies")]
+   EProjectChangeCurrenciesAction(ProjectChangeCurrenciesAction),
+   #[serde(rename = "changeLanguages")]
+   EProjectChangeLanguagesAction(ProjectChangeLanguagesAction),
+   #[serde(rename = "changeMessagesConfiguration")]
+   EProjectChangeMessagesConfigurationAction(ProjectChangeMessagesConfigurationAction),
+   #[serde(rename = "changeMessagesEnabled")]
+   EProjectChangeMessagesEnabledAction(ProjectChangeMessagesEnabledAction),
+   #[serde(rename = "changeName")]
+   EProjectChangeNameAction(ProjectChangeNameAction),
+   #[serde(rename = "setShippingRateInputType")]
+   EProjectSetShippingRateInputTypeAction(ProjectSetShippingRateInputTypeAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct ShippingRateInputType {
-   pub r#type: ShippingRateTierType,
+#[serde(tag = "type")]
+pub enum ShippingRateInputType {
+   #[serde(rename = "CartValue")]
+   ECartValueType(CartValueType),
+   #[serde(rename = "CartClassification")]
+   ECartClassificationType(CartClassificationType),
+   #[serde(rename = "CartScore")]
+   ECartScoreType(CartScoreType),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

@@ -56,8 +56,16 @@ pub struct CustomerGroupUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct CustomerGroupUpdateAction {
+#[serde(tag = "action")]
+pub enum CustomerGroupUpdateAction {
+   #[serde(rename = "changeName")]
+   ECustomerGroupChangeNameAction(CustomerGroupChangeNameAction),
+   #[serde(rename = "setCustomField")]
+   ECustomerGroupSetCustomFieldAction(CustomerGroupSetCustomFieldAction),
+   #[serde(rename = "setCustomType")]
+   ECustomerGroupSetCustomTypeAction(CustomerGroupSetCustomTypeAction),
+   #[serde(rename = "setKey")]
+   ECustomerGroupSetKeyAction(CustomerGroupSetKeyAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

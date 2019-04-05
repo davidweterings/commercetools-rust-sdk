@@ -76,14 +76,37 @@ pub struct ProductDiscountUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct ProductDiscountUpdateAction {
+#[serde(tag = "action")]
+pub enum ProductDiscountUpdateAction {
+   #[serde(rename = "changeIsActive")]
+   EProductDiscountChangeIsActiveAction(ProductDiscountChangeIsActiveAction),
+   #[serde(rename = "changeName")]
+   EProductDiscountChangeNameAction(ProductDiscountChangeNameAction),
+   #[serde(rename = "changePredicate")]
+   EProductDiscountChangePredicateAction(ProductDiscountChangePredicateAction),
+   #[serde(rename = "changeSortOrder")]
+   EProductDiscountChangeSortOrderAction(ProductDiscountChangeSortOrderAction),
+   #[serde(rename = "changeValue")]
+   EProductDiscountChangeValueAction(ProductDiscountChangeValueAction),
+   #[serde(rename = "setDescription")]
+   EProductDiscountSetDescriptionAction(ProductDiscountSetDescriptionAction),
+   #[serde(rename = "setValidFrom")]
+   EProductDiscountSetValidFromAction(ProductDiscountSetValidFromAction),
+   #[serde(rename = "setValidFromAndUntil")]
+   EProductDiscountSetValidFromAndUntilAction(ProductDiscountSetValidFromAndUntilAction),
+   #[serde(rename = "setValidUntil")]
+   EProductDiscountSetValidUntilAction(ProductDiscountSetValidUntilAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct ProductDiscountValue {
-   pub r#type: String,
+#[serde(tag = "type")]
+pub enum ProductDiscountValue {
+   #[serde(rename = "absolute")]
+   EProductDiscountValueAbsolute(ProductDiscountValueAbsolute),
+   #[serde(rename = "external")]
+   EProductDiscountValueExternal(ProductDiscountValueExternal),
+   #[serde(rename = "relative")]
+   EProductDiscountValueRelative(ProductDiscountValueRelative),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

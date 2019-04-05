@@ -64,9 +64,12 @@ pub struct ExtensionAzureFunctionsAuthentication {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct ExtensionDestination {
-   pub r#type: String,
+#[serde(tag = "type")]
+pub enum ExtensionDestination {
+   #[serde(rename = "HTTP")]
+   EExtensionHttpDestination(ExtensionHttpDestination),
+   #[serde(rename = "AWSLambda")]
+   EExtensionAWSLambdaDestination(ExtensionAWSLambdaDestination),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -85,9 +88,12 @@ pub struct ExtensionHttpDestination {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct ExtensionHttpDestinationAuthentication {
-   pub r#type: String,
+#[serde(tag = "type")]
+pub enum ExtensionHttpDestinationAuthentication {
+   #[serde(rename = "AzureFunctions")]
+   EExtensionAzureFunctionsAuthentication(ExtensionAzureFunctionsAuthentication),
+   #[serde(rename = "AuthorizationHeader")]
+   EExtensionAuthorizationHeaderAuthentication(ExtensionAuthorizationHeaderAuthentication),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -150,8 +156,14 @@ pub struct ExtensionUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct ExtensionUpdateAction {
+#[serde(tag = "action")]
+pub enum ExtensionUpdateAction {
+   #[serde(rename = "changeDestination")]
+   EExtensionChangeDestinationAction(ExtensionChangeDestinationAction),
+   #[serde(rename = "changeTriggers")]
+   EExtensionChangeTriggersAction(ExtensionChangeTriggersAction),
+   #[serde(rename = "setKey")]
+   EExtensionSetKeyAction(ExtensionSetKeyAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

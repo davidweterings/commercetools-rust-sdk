@@ -78,8 +78,34 @@ pub struct DiscountCodeUpdate {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct DiscountCodeUpdateAction {
+#[serde(tag = "action")]
+pub enum DiscountCodeUpdateAction {
+   #[serde(rename = "changeCartDiscounts")]
+   EDiscountCodeChangeCartDiscountsAction(DiscountCodeChangeCartDiscountsAction),
+   #[serde(rename = "changeGroups")]
+   EDiscountCodeChangeGroupsAction(DiscountCodeChangeGroupsAction),
+   #[serde(rename = "changeIsActive")]
+   EDiscountCodeChangeIsActiveAction(DiscountCodeChangeIsActiveAction),
+   #[serde(rename = "setCartPredicate")]
+   EDiscountCodeSetCartPredicateAction(DiscountCodeSetCartPredicateAction),
+   #[serde(rename = "setCustomField")]
+   EDiscountCodeSetCustomFieldAction(DiscountCodeSetCustomFieldAction),
+   #[serde(rename = "setCustomType")]
+   EDiscountCodeSetCustomTypeAction(DiscountCodeSetCustomTypeAction),
+   #[serde(rename = "setDescription")]
+   EDiscountCodeSetDescriptionAction(DiscountCodeSetDescriptionAction),
+   #[serde(rename = "setMaxApplications")]
+   EDiscountCodeSetMaxApplicationsAction(DiscountCodeSetMaxApplicationsAction),
+   #[serde(rename = "setMaxApplicationsPerCustomer")]
+   EDiscountCodeSetMaxApplicationsPerCustomerAction(DiscountCodeSetMaxApplicationsPerCustomerAction),
+   #[serde(rename = "setName")]
+   EDiscountCodeSetNameAction(DiscountCodeSetNameAction),
+   #[serde(rename = "setValidFrom")]
+   EDiscountCodeSetValidFromAction(DiscountCodeSetValidFromAction),
+   #[serde(rename = "setValidFromAndUntil")]
+   EDiscountCodeSetValidFromAndUntilAction(DiscountCodeSetValidFromAndUntilAction),
+   #[serde(rename = "setValidUntil")]
+   EDiscountCodeSetValidUntilAction(DiscountCodeSetValidUntilAction),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

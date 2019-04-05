@@ -1250,9 +1250,136 @@ pub struct LineItemStateTransitionMessagePayload {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct MessagePayload {
-   pub r#type: String,
+#[serde(tag = "type")]
+pub enum MessagePayload {
+   #[serde(rename = "OrderBillingAddressSet")]
+   EOrderBillingAddressSetMessagePayload(OrderBillingAddressSetMessagePayload),
+   #[serde(rename = "OrderCreated")]
+   EOrderCreatedMessagePayload(OrderCreatedMessagePayload),
+   #[serde(rename = "OrderCustomLineItemDiscountSet")]
+   EOrderCustomLineItemDiscountSetMessagePayload(OrderCustomLineItemDiscountSetMessagePayload),
+   #[serde(rename = "OrderCustomerEmailSet")]
+   EOrderCustomerEmailSetMessagePayload(OrderCustomerEmailSetMessagePayload),
+   #[serde(rename = "OrderCustomerSet")]
+   EOrderCustomerSetMessagePayload(OrderCustomerSetMessagePayload),
+   #[serde(rename = "OrderDeleted")]
+   EOrderDeletedMessagePayload(OrderDeletedMessagePayload),
+   #[serde(rename = "OrderDiscountCodeAdded")]
+   EOrderDiscountCodeAddedMessagePayload(OrderDiscountCodeAddedMessagePayload),
+   #[serde(rename = "OrderDiscountCodeRemoved")]
+   EOrderDiscountCodeRemovedMessagePayload(OrderDiscountCodeRemovedMessagePayload),
+   #[serde(rename = "OrderDiscountCodeStateSet")]
+   EOrderDiscountCodeStateSetMessagePayload(OrderDiscountCodeStateSetMessagePayload),
+   #[serde(rename = "OrderEditApplied")]
+   EOrderEditAppliedMessagePayload(OrderEditAppliedMessagePayload),
+   #[serde(rename = "OrderImported")]
+   EOrderImportedMessagePayload(OrderImportedMessagePayload),
+   #[serde(rename = "OrderLineItemDiscountSet")]
+   EOrderLineItemDiscountSetMessagePayload(OrderLineItemDiscountSetMessagePayload),
+   #[serde(rename = "OrderPaymentStateChanged")]
+   EOrderPaymentStateChangedMessagePayload(OrderPaymentStateChangedMessagePayload),
+   #[serde(rename = "ReturnInfoAdded")]
+   EOrderReturnInfoAddedMessagePayload(OrderReturnInfoAddedMessagePayload),
+   #[serde(rename = "OrderReturnShipmentStateChanged")]
+   EOrderReturnShipmentStateChangedMessagePayload(OrderReturnShipmentStateChangedMessagePayload),
+   #[serde(rename = "OrderShipmentStateChanged")]
+   EOrderShipmentStateChangedMessagePayload(OrderShipmentStateChangedMessagePayload),
+   #[serde(rename = "OrderShippingAddressSet")]
+   EOrderShippingAddressSetMessagePayload(OrderShippingAddressSetMessagePayload),
+   #[serde(rename = "OrderShippingInfoSet")]
+   EOrderShippingInfoSetMessagePayload(OrderShippingInfoSetMessagePayload),
+   #[serde(rename = "OrderShippingRateInputSet")]
+   EOrderShippingRateInputSetMessagePayload(OrderShippingRateInputSetMessagePayload),
+   #[serde(rename = "OrderStateChanged")]
+   EOrderStateChangedMessagePayload(OrderStateChangedMessagePayload),
+   #[serde(rename = "OrderStateTransition")]
+   EOrderStateTransitionMessagePayload(OrderStateTransitionMessagePayload),
+   #[serde(rename = "ParcelAddedToDelivery")]
+   EParcelAddedToDeliveryMessagePayload(ParcelAddedToDeliveryMessagePayload),
+   #[serde(rename = "ParcelItemsUpdated")]
+   EParcelItemsUpdatedMessagePayload(ParcelItemsUpdatedMessagePayload),
+   #[serde(rename = "ParcelMeasurementsUpdated")]
+   EParcelMeasurementsUpdatedMessagePayload(ParcelMeasurementsUpdatedMessagePayload),
+   #[serde(rename = "ParcelRemovedFromDelivery")]
+   EParcelRemovedFromDeliveryMessagePayload(ParcelRemovedFromDeliveryMessagePayload),
+   #[serde(rename = "ParcelTrackingDataUpdated")]
+   EParcelTrackingDataUpdatedMessagePayload(ParcelTrackingDataUpdatedMessagePayload),
+   #[serde(rename = "PaymentCreated")]
+   EPaymentCreatedMessagePayload(PaymentCreatedMessagePayload),
+   #[serde(rename = "PaymentInteractionAdded")]
+   EPaymentInteractionAddedMessagePayload(PaymentInteractionAddedMessagePayload),
+   #[serde(rename = "PaymentStatusInterfaceCodeSet")]
+   EPaymentStatusInterfaceCodeSetMessagePayload(PaymentStatusInterfaceCodeSetMessagePayload),
+   #[serde(rename = "PaymentStatusStateTransition")]
+   EPaymentStatusStateTransitionMessagePayload(PaymentStatusStateTransitionMessagePayload),
+   #[serde(rename = "PaymentTransactionAdded")]
+   EPaymentTransactionAddedMessagePayload(PaymentTransactionAddedMessagePayload),
+   #[serde(rename = "PaymentTransactionStateChanged")]
+   EPaymentTransactionStateChangedMessagePayload(PaymentTransactionStateChangedMessagePayload),
+   #[serde(rename = "ProductCreated")]
+   EProductCreatedMessagePayload(ProductCreatedMessagePayload),
+   #[serde(rename = "ProductDeleted")]
+   EProductDeletedMessagePayload(ProductDeletedMessagePayload),
+   #[serde(rename = "ProductImageAdded")]
+   EProductImageAddedMessagePayload(ProductImageAddedMessagePayload),
+   #[serde(rename = "ProductPriceDiscountsSet")]
+   EProductPriceDiscountsSetMessagePayload(ProductPriceDiscountsSetMessagePayload),
+   #[serde(rename = "ProductPriceExternalDiscountSet")]
+   EProductPriceExternalDiscountSetMessagePayload(ProductPriceExternalDiscountSetMessagePayload),
+   #[serde(rename = "ProductPublished")]
+   EProductPublishedMessagePayload(ProductPublishedMessagePayload),
+   #[serde(rename = "ProductRevertedStagedChanges")]
+   EProductRevertedStagedChangesMessagePayload(ProductRevertedStagedChangesMessagePayload),
+   #[serde(rename = "ProductSlugChanged")]
+   EProductSlugChangedMessagePayload(ProductSlugChangedMessagePayload),
+   #[serde(rename = "ProductStateTransition")]
+   EProductStateTransitionMessagePayload(ProductStateTransitionMessagePayload),
+   #[serde(rename = "ProductUnpublished")]
+   EProductUnpublishedMessagePayload(ProductUnpublishedMessagePayload),
+   #[serde(rename = "ProductVariantDeleted")]
+   EProductVariantDeletedMessagePayload(ProductVariantDeletedMessagePayload),
+   #[serde(rename = "ReviewCreated")]
+   EReviewCreatedMessagePayload(ReviewCreatedMessagePayload),
+   #[serde(rename = "ReviewRatingSet")]
+   EReviewRatingSetMessagePayload(ReviewRatingSetMessagePayload),
+   #[serde(rename = "ReviewStateTransition")]
+   EReviewStateTransitionMessagePayload(ReviewStateTransitionMessagePayload),
+   #[serde(rename = "CustomLineItemStateTransition")]
+   ECustomLineItemStateTransitionMessagePayload(CustomLineItemStateTransitionMessagePayload),
+   #[serde(rename = "CategorySlugChanged")]
+   ECategorySlugChangedMessagePayload(CategorySlugChangedMessagePayload),
+   #[serde(rename = "CustomerAddressRemoved")]
+   ECustomerAddressRemovedMessagePayload(CustomerAddressRemovedMessagePayload),
+   #[serde(rename = "InventoryEntryDeleted")]
+   EInventoryEntryDeletedMessagePayload(InventoryEntryDeletedMessagePayload),
+   #[serde(rename = "DeliveryAddressSet")]
+   EDeliveryAddressSetMessagePayload(DeliveryAddressSetMessagePayload),
+   #[serde(rename = "DeliveryRemoved")]
+   EDeliveryRemovedMessagePayload(DeliveryRemovedMessagePayload),
+   #[serde(rename = "CustomerEmailChanged")]
+   ECustomerEmailChangedMessagePayload(CustomerEmailChangedMessagePayload),
+   #[serde(rename = "CustomerCompanyNameSet")]
+   ECustomerCompanyNameSetMessagePayload(CustomerCompanyNameSetMessagePayload),
+   #[serde(rename = "CustomerAddressChanged")]
+   ECustomerAddressChangedMessagePayload(CustomerAddressChangedMessagePayload),
+   #[serde(rename = "CustomerEmailVerified")]
+   ECustomerEmailVerifiedMessagePayload(CustomerEmailVerifiedMessagePayload),
+   #[serde(rename = "DeliveryAdded")]
+   EDeliveryAddedMessagePayload(DeliveryAddedMessagePayload),
+   #[serde(rename = "CustomerCreated")]
+   ECustomerCreatedMessagePayload(CustomerCreatedMessagePayload),
+   #[serde(rename = "LineItemStateTransition")]
+   ELineItemStateTransitionMessagePayload(LineItemStateTransitionMessagePayload),
+   #[serde(rename = "CustomerAddressAdded")]
+   ECustomerAddressAddedMessagePayload(CustomerAddressAddedMessagePayload),
+   #[serde(rename = "CustomerGroupSet")]
+   ECustomerGroupSetMessagePayload(CustomerGroupSetMessagePayload),
+   #[serde(rename = "CustomerDateOfBirthSet")]
+   ECustomerDateOfBirthSetMessagePayload(CustomerDateOfBirthSetMessagePayload),
+   #[serde(rename = "DeliveryItemsUpdated")]
+   EDeliveryItemsUpdatedMessagePayload(DeliveryItemsUpdatedMessagePayload),
+   #[serde(rename = "CategoryCreated")]
+   ECategoryCreatedMessagePayload(CategoryCreatedMessagePayload),
 }
 
 #[derive(Serialize, Deserialize, Debug)]

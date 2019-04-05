@@ -89,10 +89,72 @@ pub struct EnumValueIsUsedError {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct ErrorObject {
-   pub code: String,
-   pub message: String,
+#[serde(tag = "code")]
+pub enum ErrorObject {
+   #[serde(rename = "ExtensionBadResponse")]
+   EExtensionBadResponseError(ExtensionBadResponseError),
+   #[serde(rename = "ExtensionNoResponse")]
+   EExtensionNoResponseError(ExtensionNoResponseError),
+   #[serde(rename = "ExtensionUpdateActionsFailed")]
+   EExtensionUpdateActionsFailedError(ExtensionUpdateActionsFailedError),
+   #[serde(rename = "insufficient_scope")]
+   EInsufficientScopeError(InsufficientScopeError),
+   #[serde(rename = "InvalidCredentials")]
+   EInvalidCredentialsError(InvalidCredentialsError),
+   #[serde(rename = "InvalidCurrentPassword")]
+   EInvalidCurrentPasswordError(InvalidCurrentPasswordError),
+   #[serde(rename = "InvalidField")]
+   EInvalidFieldError(InvalidFieldError),
+   #[serde(rename = "InvalidInput")]
+   EInvalidInputError(InvalidInputError),
+   #[serde(rename = "InvalidItemShippingDetails")]
+   EInvalidItemShippingDetailsError(InvalidItemShippingDetailsError),
+   #[serde(rename = "InvalidJsonInput")]
+   EInvalidJsonInputError(InvalidJsonInputError),
+   #[serde(rename = "InvalidOperation")]
+   EInvalidOperationError(InvalidOperationError),
+   #[serde(rename = "InvalidSubject")]
+   EInvalidSubjectError(InvalidSubjectError),
+   #[serde(rename = "invalid_token")]
+   EInvalidTokenError(InvalidTokenError),
+   #[serde(rename = "MatchingPriceNotFound")]
+   EMatchingPriceNotFoundError(MatchingPriceNotFoundError),
+   #[serde(rename = "MissingTaxRateForCountry")]
+   EMissingTaxRateForCountryError(MissingTaxRateForCountryError),
+   #[serde(rename = "NoMatchingProductDiscountFound")]
+   ENoMatchingProductDiscountFoundError(NoMatchingProductDiscountFoundError),
+   #[serde(rename = "OutOfStock")]
+   EOutOfStockError(OutOfStockError),
+   #[serde(rename = "PriceChanged")]
+   EPriceChangedError(PriceChangedError),
+   #[serde(rename = "ReferenceExists")]
+   EReferenceExistsError(ReferenceExistsError),
+   #[serde(rename = "RequiredField")]
+   ERequiredFieldError(RequiredFieldError),
+   #[serde(rename = "ResourceNotFound")]
+   EResourceNotFoundError(ResourceNotFoundError),
+   #[serde(rename = "ShippingMethodDoesNotMatchCart")]
+   EShippingMethodDoesNotMatchCartError(ShippingMethodDoesNotMatchCartError),
+   #[serde(rename = "DuplicateField")]
+   EDuplicateFieldError(DuplicateFieldError),
+   #[serde(rename = "DuplicateFieldWithConflictingResource")]
+   EDuplicateFieldWithConflictingResourceError(DuplicateFieldWithConflictingResourceError),
+   #[serde(rename = "DuplicateAttributeValue")]
+   EDuplicateAttributeValueError(DuplicateAttributeValueError),
+   #[serde(rename = "DuplicatePriceScope")]
+   EDuplicatePriceScopeError(DuplicatePriceScopeError),
+   #[serde(rename = "access_denied")]
+   EAccessDeniedError(AccessDeniedError),
+   #[serde(rename = "EnumValueIsUsed")]
+   EEnumValueIsUsedError(EnumValueIsUsedError),
+   #[serde(rename = "DuplicateAttributeValues")]
+   EDuplicateAttributeValuesError(DuplicateAttributeValuesError),
+   #[serde(rename = "ConcurrentModification")]
+   EConcurrentModificationError(ConcurrentModificationError),
+   #[serde(rename = "DiscountCodeNonApplicable")]
+   EDiscountCodeNonApplicableError(DiscountCodeNonApplicableError),
+   #[serde(rename = "DuplicateVariantValues")]
+   EDuplicateVariantValuesError(DuplicateVariantValuesError),
 }
 
 #[derive(Serialize, Deserialize, Debug)]
